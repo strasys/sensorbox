@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wistcon-pool>
+
+<GPIOIN>
+	<InputName>IN 1</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 2</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 3</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 4</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 5</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 6</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 7</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 8</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 9</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 10</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 11</InputName>
+</GPIOIN>
+<GPIOIN>
+	<InputName>IN 12</InputName>
+</GPIOIN>
+<GPIOOUT>
+	<OutputName>Relay</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>Ventil 1</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>Ventil 2</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 4</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 5</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 6</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 7</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 8</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 9</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 10</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 11</OutputName>
+</GPIOOUT>
+<GPIOOUT>
+	<OutputName>OUT 12</OutputName>
+</GPIOOUT>
+<PT1000>
+	<PT1000Name1>PT1000 1</PT1000Name1>
+<PT1000Name2>Büro Temp.</PT1000Name2></PT1000>
+<PT1000>
+	<PT1000Name1>Außentemperatur</PT1000Name1>
+<PT1000Name2>PT1000 test</PT1000Name2></PT1000>
+<PT1000>
+	<PT1000Name1>Büro Wand</PT1000Name1>
+<PT1000Name2>PT1000 3</PT1000Name2></PT1000>
+<PT1000>
+	<PT1000Name1>PT1000 4</PT1000Name1>
+<PT1000Name2>PT1000 4</PT1000Name2></PT1000>
+<PT1000>
+	<PT1000Name2>PT1000 1</PT1000Name2>
+</PT1000>
+<PT1000>
+	<PT1000Name2>PT1000 2</PT1000Name2>
+</PT1000>
+<PT1000>
+	<PT1000Name2>PT1000 3</PT1000Name2>
+</PT1000>
+<PT1000>
+	<PT1000Name2>PT1000 4</PT1000Name2>
+</PT1000>
+<PT1000>
+	<PT1000Name3>PT1000 1</PT1000Name3>
+</PT1000>
+<PT1000>
+	<PT1000Name3>PT1000 2</PT1000Name3>
+</PT1000>
+<PT1000>
+	<PT1000Name3>PT1000 3</PT1000Name3>
+</PT1000>
+<PT1000>
+	<PT1000Name3>PT1000 4</PT1000Name3>
+</PT1000>
+<PT1000>
+	<PT1000Name4>PT1000 1</PT1000Name4>
+</PT1000>
+<PT1000>
+	<PT1000Name4>PT1000 2</PT1000Name4>
+</PT1000>
+<PT1000>
+	<PT1000Name4>PT1000 3</PT1000Name4>
+</PT1000>
+<PT1000>
+	<PT1000Name4>PT1000 4</PT1000Name4>
+</PT1000>
+<AIN>
+	<AINName>Feuchte Analog</AINName>
+</AIN>
+<AIN>
+	<AINName>Temp. Analog</AINName>
+</AIN>
+<AIN>
+	<AINName>AIN 3</AINName>
+</AIN>
+<AIN>
+	<AINName>AIN 4</AINName>
+</AIN>
+<AOUT>
+	<AOUTName1>AOUT 1</AOUTName1>
+</AOUT>
+<AOUT>
+	<AOUTName1>AOUT 2</AOUTName1>
+</AOUT>
+<AOUT>
+	<AOUTName1>AOUT 3</AOUTName1>
+</AOUT>
+<AOUT>
+	<AOUTName1>AOUT 4</AOUTName1>
+</AOUT>
+<AOUT>
+	<AOUTName2>AOUT 1</AOUTName2>
+</AOUT>
+<AOUT>
+	<AOUTName2>AOUT 2</AOUTName2>
+</AOUT>
+<AOUT>
+	<AOUTName2>AOUT 3</AOUTName2>
+</AOUT>
+<AOUT>
+	<AOUTName2>AOUT 4</AOUTName2>
+</AOUT>
+<AOUT>
+	<AOUTName3>AOUT 1</AOUTName3>
+</AOUT>
+<AOUT>
+	<AOUTName3>AOUT 2</AOUTName3>
+</AOUT>
+<AOUT>
+	<AOUTName3>AOUT 3</AOUTName3>
+</AOUT>
+<AOUT>
+	<AOUTName3>AOUT 4</AOUTName3>
+</AOUT>
+
+<data_cloud><datatocloud>PT1000_1:2:temp_Außen:1:°C:1</datatocloud><datatocloud>PT1000_2:2:temp_BüroWand:1:°C:1</datatocloud><datatocloud>AIN_0:1:feuchte_Büro:1:%rel.F.:0.024414</datatocloud><datatocloud>AIN_1:1:temp_feuchteBüro:1:°C:0.012207</datatocloud></data_cloud>
+
+<ButtonText>
+	<RinseBackButton>Rückspülen</RinseBackButton>
+</ButtonText>
+
+<CleaningInterval>
+	<Start>14:40</Start>
+	<Stop>17:30</Stop>
+	<Periode>02:50</Periode>
+</CleaningInterval>
+<CleaningInterval>
+	<Start>00:00</Start>
+	<Stop>00:00</Stop>
+	<Periode>00:00</Periode>
+</CleaningInterval>
+<CleaningInterval>
+	<Start>00:00</Start>
+	<Stop>00:00</Stop>
+	<Periode>00:00</Periode>
+</CleaningInterval>
+<CleaningInterval>
+	<Start>00:00</Start>
+	<Stop>00:00</Stop>
+	<Periode>00:00</Periode>
+</CleaningInterval>
+<CleaningSetting>
+	<OperationMode>OFF</OperationMode>
+	<tipCleaningTime>0</tipCleaningTime>
+</CleaningSetting>
+<SolarSetting>
+	<operationMode>AUTO</operationMode>
+	<backWaterTemp>28</backWaterTemp>
+	<diffONTemp>7</diffONTemp>
+	<diffOFFTemp>5</diffOFFTemp>
+	<SwitchOFFdelay>2</SwitchOFFdelay>
+	<SwitchONdelay>2</SwitchONdelay>
+</SolarSetting>
+<LevelControl>
+	<operationMode>OFF</operationMode>
+	<Overtraveltime>20</Overtraveltime>
+	<SensorONTime>5</SensorONTime>
+</LevelControl>
+<RinseBackSetting>
+	<timebetweenRinseBack>21</timebetweenRinseBack>
+	<RinseBackTime>5</RinseBackTime>
+	<RinseBackClearing>3</RinseBackClearing>
+</RinseBackSetting>
+<OperationModeDevice>
+	<AutomaticHand>stop</AutomaticHand>
+	<DNSService>run</DNSService>
+	<PushDataCloudService>stop</PushDataCloudService>
+</OperationModeDevice>
+<Owner>
+	<email>johannes.strasser@wistcon.at</email>
+	<userName>johannes.strasser</userName>
+</Owner>
+</wistcon-pool>
