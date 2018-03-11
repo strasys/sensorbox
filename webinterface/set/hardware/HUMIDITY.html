@@ -27,18 +27,18 @@
 		<ol class="breadcrumb">
 			<li><a href="/set/set.html?ver=0">Set</a></li>
 			<li><a href="/set/hardware/hardware.html?ver=0">Hardware</a></li>
-			<li class="active">PT1000 Eingang</li>
+			<li class="active">Feuchte Sensor</li>
 		</ol>
 
-		<div id="setPT1000NameDiv">
+		<div id="setHUMIDITYNameDiv">
 		<!-- Load setButtonName.html on button click showSetButtonName -->
 		</div>
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h3><b>Status PT1000 Eingänge</b></h3>
+				<h3><b>Status HUMIDITY - Sensor Eingänge</b></h3>
 			</div>
 			<div class="panel-body">
-				<h3><button class="btn btn-default" id="showSetPT1000Name" onclick="SetPT1000Name()">Beschriftung ändern</button></h3>	
+				<h3><button class="btn btn-default" id="showSetHUMIDITYName" onclick="SetHUMIDITYName()">Beschriftung ändern</button></h3>	
 				<div class="row">	
 					<div class="col-md-12">
 					
@@ -46,16 +46,16 @@
 					 		<li class="list-group-item">	
 								<h4>
 								<!--  	<span class="label label-success" style = "width:100%;"> -->
-									<span class="badge alert-info" id="badgePT10001" style = "font-size:125%;"></span>
-									<strong id="labelPT10000" style = "font-size:125%;"></strong>					
+									<span class="badge alert-info" id="badgeHUMIDITY" style = "font-size:125%;"></span>
+									<strong id="labelHUMIDITY" style = "font-size:125%;"></strong>					
 								<!--	</span>	-->
 								</h4>
 							</li>
 							<li class="list-group-item">	
 								<h4>
 								<!--  	<span class="label label-success" style = "width:100%;"> -->
-									<span class="badge alert-info" id="badgePT10002" style = "font-size:125%;"></span>
-									<strong id="labelPT10001" style = "font-size:125%;"></strong>
+									<span class="badge alert-info" id="badgeTEMPERATURE" style = "font-size:125%;"></span>
+									<strong id="labelTEMPERATURE" style = "font-size:125%;"></strong>
 								<!--	</span>	-->
 								</h4>
 							</li>
@@ -71,7 +71,7 @@
     <script src="/jQuery/3.2.1/jquery.min.js"></script> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
-    <script src="PT1000.js?ver=4"></script>
+    <script src="HUMIDITY.js?ver=4"></script>
   </body>
 </html>
   

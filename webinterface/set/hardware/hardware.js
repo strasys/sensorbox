@@ -73,6 +73,7 @@ function sethardwarehtmlinterface(callback){
 	var counter_PT1000 = 0;
 	var counter_AOUT = 0;
 	var counter_AIN = 0;
+	var counter_HUMIDITY = 0;
 	for (i=0;i<4;i++){
 		switch(EEPROMext[i]) {
 			case "PT1000":
@@ -110,6 +111,19 @@ function sethardwarehtmlinterface(callback){
 				//set cookie
 					setCookie("extension"+(i+1),"AIN",1,function(){
 						setCookie("extensionNumkind"+(i+1),counter_AIN,1,function(){
+						});
+					});	
+				});
+				break;
+			case "HUMIDITY":
+				counter_HUMIDITY += 1;
+				idData = "HUMIDITY"+counter_HUMIDITY;
+				header = "Feuchte Sensor";
+				description = "Feuchtesensor: Digital<br>Ausgabe: Feuchte und Temperatur";
+				loadExtensions(i+1, idData, header, description, function(){
+				//set cookie
+					setCookie("extension"+(i+1),"HUMIDITY",1,function(){
+						setCookie("extensionNumkind"+(i+1),counter_HUMIDITY,1,function(){
 						});
 					});	
 				});
@@ -164,13 +178,6 @@ function loadNavbar(callback1){
 			});
  }
 
-$("#DigiIN").on('click', function(){
-	window.location = "gpioIN.html?ver=0";
-});
-
-$("#DigiOUT").on('click', function(){
-	window.location = "gpioOut.html?ver=0";
-});
 
 $("#Extension1").on('click', function(){
 

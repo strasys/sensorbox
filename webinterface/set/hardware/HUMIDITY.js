@@ -10,12 +10,12 @@
 
 sortoutcache = new Date();
 //PT1000Num is to identify how mainy PT1000 cards are used in paralel
-var PT1000Num; 
+var HUMIDITYNum; 
 //Is the number of the extension the card is put into.
 var extNum;
 //var getCookieData;
 
-function getPT1000Data(setget, url, cfunc, senddata){
+function getHUMIDITYData(setget, url, cfunc, senddata){
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = cfunc;
 	xhttp.open(setget,url,true);
@@ -43,9 +43,9 @@ function getURLparms(callback){
 	}
 		
 	getCookie(vars[1], function(result){	
-		if (result == 'PT1000'){
+		if (result == 'HUMIDITY'){
 			getCookie(vars[2], function(result1){
-				PT1000Num = result1;
+				HUMIDITYNum = result1;
 				callback();
 			});	
 		} else {
@@ -55,7 +55,7 @@ function getURLparms(callback){
 }
 
 function getStatusLogin(callback1){
-		getPT1000Data("post","/userLogStatus.php",function()
+		getHUMIDITYData("post","/userLogStatus.php",function()
 		{
 			if (xhttp.readyState==4 && xhttp.status==200)
 			{
@@ -71,56 +71,50 @@ function getStatusLogin(callback1){
 		});		
 }
 
-function getPT1000values(callback1){
-		getPT1000Data("post","PT1000handler.php",function()
+function getHUMIDITYvalues(callback1){
+		getHUMIDITYData("post","HUMIDITYhandler.php",function()
 		{
 			if (xhttp.readyState==4 && xhttp.status==200)
 			{
-			var getPT1000 = JSON.parse(xhttp.responseText); 
+				var getHUMIDITY = JSON.parse(xhttp.responseText); 
 			
-			PT1000temperaturevalues = [
-						(getPT1000.temperature11),
-						(getPT1000.temperature12),
-			                        (getPT1000.loginstatus),
-						(getPT1000.adminstatus)
-			                          ];
 				if (callback1){
-				callback1();
+					callback1(getHUMIDITY.humidity_val, getHUMIDITY.temperature_val, getHUMIDITY.loginstatus, getHUMIDITY.adminstatus);
 				}
 			}
-		},"setgetPT1000handler=g"+
-		  "&PT1000ext="+extNum);		
+		},"setgetHUMIDITYhandler=g"+
+		  "&HUMIDITYext="+extNum);		
 }
 
-function getPT1000XMLData(callback4){
-	getPT1000Data("POST", "PT1000handler.php", function(){
+function getHUMIDITYXMLData(callback4){
+	getHUMIDITYData("POST", "HUMIDITYhandler.php", function(){
 		if (xhttp.readyState==4 && xhttp.status==200){
-			var getPT1000XML = JSON.parse(xhttp.responseText);
-			for (i=0; i<2; i++){
-				document.getElementById("labelPT1000"+i).innerHTML = getPT1000XML[i];
-			}
+			var getHUMIDITYXML = JSON.parse(xhttp.responseText);
+
+			document.getElementById("labelHUMIDITY").innerHTML = getHUMIDITYXML[0];
+			document.getElementById("labelTEMPERATURE").innerHTML = getHUMIDITYXML[1];
+
 			if (callback4){
 				callback4();
 			}
 		}		
-	}, "getXMLData=1&PT1000ext="+PT1000Num);
+	}, "getXMLData=1&HUMIDITYext="+HUMIDITYNum);
 	
 }
 
-function showPT1000values(){
-	getPT1000values(function(){
-		if (PT1000temperaturevalues[2])
+function showHUMIDITYvalues(){
+	getHUMIDITYvalues(function(humidity, temperature, userLog_status, adminLog_status){
+		if (userLog_status)
 			{
-			for(i=0;i<5;i++){
-				$("#badgePT1000"+(i+1)).text(PT1000temperaturevalues[i]+" °C");
-			}
+				$("#badgeHUMIDITY").text(humidity+" % r.F.");
+				$("#badgeTEMPERATURE").text(temperature+" °C");
 			}
 		else
 			{
 			window.location.replace("/login.html");
 			}
 	});
-	setTimeout(function(){showPT1000values()}, 10000);
+	setTimeout(function(){showHUMIDITYvalues()}, 10000);
 }
 
 // This function is called after pressing the "Button Beschriftung ändern" button.
@@ -128,16 +122,16 @@ function showPT1000values(){
 // into the input fields.
 
 function getXMLDataInput(){
-	getPT1000Data("GET", "/VDF.xml?sortoutcache="+sortoutcache.valueOf(),function()
+	getHUMIDITYData("GET", "/VDF.xml?sortoutcache="+sortoutcache.valueOf(),function()
 	{
 		if (xhttp.readyState==4 && xhttp.status==200)
 			{
-				var getPT1000XML = xhttp.responseXML;
-				var w = getPT1000XML.getElementsByTagName("PT1000Name"+PT1000Num);
+				var getHUMIDITYXML = xhttp.responseXML;
+				var w = getHUMIDITYXML.getElementsByTagName("HUMIDITYname"+HUMIDITYNum);
 				var z = w.length;
 				var i = 0;
 				for (i=0; i<z; i++){
-					document.getElementById("changePT1000Name"+i).value=w[i].childNodes[0].nodeValue;	
+				document.getElementById("changeHUMIDITYName"+i).value=w[i].childNodes[0].nodeValue;	
 				}
 			}
 	});
@@ -163,53 +157,53 @@ function getCookie(cname, callback) {
 // After pressing the button "Änderungen speichern" in the button name change menue.
 // This function transfers the data to the server where it will be saved with the 
 // help of a php function.
-function setPT1000XMLDataInput(callback3){
+function setHUMIDITYXMLDataInput(callback3){
 	
-	var PT1000Text = [];
+	var HUMIDITYText = [];
 	
 	for (i=0;i<2;i++){
-		PT1000Text[i] = document.getElementById("changePT1000Name"+i).value;
+		HUMIDITYText[i] = document.getElementById("changeHUMIDITYName"+i).value;
 	}	
 		
-		getPT1000Data("post","PT1000handler.php",function()
+		getHUMIDITYData("post","HUMIDITYhandler.php",function()
 		{
 			if (xhttp.readyState==4 && xhttp.status==200)
 			{
 				callback3();
 			}
 		},
-		"PT1000Text0="+PT1000Text[0]+
-		"&PT1000Text1="+PT1000Text[1]+
-		"&PT1000ext=PT1000Name"+PT1000Num+
-		"&setPT1000NameFlag=1");
+		"HUMIDITYText0="+HUMIDITYText[0]+
+		"&HUMIDITYText1="+HUMIDITYText[1]+
+		"&HUMIDITYext=HUMIDITYname"+HUMIDITYNum+
+		"&setHUMIDITYNameFlag=1");
 	
 //	ButtonNameSave.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 }
 
 //Show input fields to change Button Names
-function SetPT1000Name(){
+function SetHUMIDITYName(){
 	 $(document).ready(function(){
-		$("#setPT1000NameDiv").load("setPT1000Name.html?ver=0", function(){
+		$("#setHUMIDITYNameDiv").load("setHUMIDITYName.html?ver=0", function(){
 			getXMLDataInput();
-			$("#setPT1000NameDiv").show();
-			$("#showSetPT1000Name").hide();	
+			$("#setHUMIDITYNameDiv").show();
+			$("#showSetHUMIDITYName").hide();	
 		});
 	 });
 }
 
-function SaveSetPT1000Name(){
-		  setPT1000XMLDataInput(function(){
-				getPT1000XMLData();
+function SaveSetHUMIDITYName(){
+		  setHUMIDITYXMLDataInput(function(){
+				getHUMIDITYXMLData();
 		  });
 }
 
-function CancelSetPT1000Name(){
-		  getPT1000XMLDataInput();
+function CancelSetHUMIDITYName(){
+		  getHUMIDITYXMLDataInput();
 }
 
-function CollapseSetPT1000Name(){
-		$("#setPT1000NameDiv").hide();
-		$("#showSetPT1000Name").show();
+function CollapseSetHUMIDITYName(){
+		$("#setHUMIDITYNameDiv").hide();
+		$("#showSetHUMIDITYName").show();
 		location.reload(true);
 		 
 }
@@ -218,8 +212,8 @@ function CollapseSetPT1000Name(){
 function startatLoad(){
 	loadNavbar(function(){
 		getURLparms(function(extensionNum){
-			getPT1000XMLData(function(){
-				showPT1000values();
+			getHUMIDITYXMLData(function(){
+				showHUMIDITYvalues();
 			});
 		});
 	});

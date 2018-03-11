@@ -1,8 +1,8 @@
 /**
- * Program for start side.
+ * Program for start side sensorbox
  * 
  * Johannes Strasser
- * 03.10.2016
+ * 11.03.2018
  * www.strasys.at
  * 
  */
@@ -69,45 +69,17 @@ function getServerData(callback2){
 	},"getLoginStatus=g&getData=g");		
 }
 
-function setServerData(OutNumber,OutValue,callback5){
-	setgetrequestServer("post","/index.php",function()
-	{
-		if (xhttp.readyState==4 && xhttp.status==200)
-		{
-		if (callback5){
-			callback5();
-			}
-		}
-
-	},"getData=s&setOutNumber="+OutNumber+"&setOutValue="+OutValue);		
-}
-
 function getXMLData(callback4){
 	var getXMLData;
 	setgetrequestServer("GET","/VDF.xml?sortoutcache="+sortoutcache.valueOf(),function(){
 		
 		if (xhttp.readyState==4 && xhttp.status==200){
 			var getXMLData = xhttp.responseXML;
-			var digiIN = getXMLData.getElementsByTagName("GPIOIN");
-			var digiOUT = getXMLData.getElementsByTagName("GPIOOUT");
+			var HUMIDITY = getXMLData.getElementsByTagName("HUMIDITY");
 			var PT1000 = getXMLData.getElementsByTagName("PT1000");
-			var AIN = getXMLData.getElementsByTagName("AIN");
-			var ButtonText = getXMLData.getElementsByTagName("ButtonText");
 
-			document.getElementById("labelFeuchte").innerHTML = AIN[0].getElementsByTagName("AINName")[0].childNodes[0].nodeValue;
-			document.getElementById("labelTemperatur").innerHTML = AIN[1].getElementsByTagName("AINName")[0].childNodes[0].nodeValue;
-			document.getElementById("labelTempOutside").innerHTML = PT1000[2].getElementsByTagName("PT1000Name1")[0].childNodes[0].nodeValue;
-			document.getElementById("buttonOutText0").innerHTML = digiOUT[0].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
-			document.getElementById("buttonOutText1").innerHTML = digiOUT[1].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
-			document.getElementById("buttonOutText2").innerHTML = digiOUT[2].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
-			document.getElementById("buttonOutText3").innerHTML = digiOUT[3].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
-			document.getElementById("ButtonRinseBacktext").innerHTML = ButtonText[0].getElementsByTagName("RinseBackButton")[0].childNodes[0].nodeValue;
-			document.getElementById("labelTempPool").innerHTML = PT1000[1].getElementsByTagName("PT1000Name1")[0].childNodes[0].nodeValue;
-
-			document.getElementById("labelStatusPump").innerHTML = digiOUT[1].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
-			document.getElementById("labelStatusWaterValve").innerHTML = digiOUT[4].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
-			document.getElementById("labelStatusNiveauSensor").innerHTML = digiIN[0].getElementsByTagName("InputName")[0].childNodes[0].nodeValue;
-			document.getElementById("labelStatusMixer").innerHTML = digiOUT[0].getElementsByTagName("OutputName")[0].childNodes[0].nodeValue;
+			document.getElementById("labelFeuchte1").innerHTML = HUMIDITY[0].getElementsByTagName("HUMIDITYname1")[0].childNodes[0].nodeValue;
+			document.getElementById("labelFeuchte_Temp1").innerHTML = HUMIDITY[1].getElementsByTagName("HUMIDITYname1")[0].childNodes[0].nodeValue;
 			
 		if (callback4){
 			callback4();
