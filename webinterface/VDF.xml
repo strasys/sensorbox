@@ -41,7 +41,7 @@
 
 
 <data_cloud>
-</data_cloud>
+<datatocloud>HUMIDITY_0:2:humidity_val1:5:% r.F.:1</datatocloud><datatocloud>HUMIDITY_1:2:humidity_temp_val1:5:°C:1</datatocloud></data_cloud>
 
 <ButtonText>
 	<RinseBackButton>Rückspülen</RinseBackButton>
@@ -91,7 +91,7 @@
 </RinseBackSetting>
 <OperationModeDevice>
 	<AutomaticHand>stop</AutomaticHand>
-	<DNSService>stop</DNSService>
+	<DNSService>run</DNSService>
 	<PushDataCloudService>stop</PushDataCloudService>
 </OperationModeDevice>
 <Owner>

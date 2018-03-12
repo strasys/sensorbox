@@ -10,6 +10,7 @@ include_once("/var/www/hw_classes/AOUT.inc.php");
 include_once("/var/www/hw_classes/GPIO.inc.php");
 include_once("/var/www/hw_classes/PT1000.inc.php");
 include_once("/var/www/hw_classes/EEPROM.inc.php");
+include_once("/var/www/hw_classes/HUMIDITY.inc.php");
 header("Content-Type: text/html; charset=utf-8");
 
 class DataCloudClass
@@ -65,6 +66,7 @@ function getDatatoSend($type, $ext, $metering_ID, $time_interval, $unit, $factor
 		$AIN = new AIN();
 		$GPIO = new GPIO();
 		$AOUT = new AOUT();
+		$HUMIDITY = new HUMIDITY();
 
 		switch (trim($type_split[0])){
 		case "DigiOUT":
@@ -84,6 +86,16 @@ function getDatatoSend($type, $ext, $metering_ID, $time_interval, $unit, $factor
 		case "PT1000":
 			$value_metering = $PT1000->getPT1000($type_split[1], $ext);
 			$value_metering = $value_metering * $factor;
+			break;
+		case "HUMIDITY":
+			if($type_split[1] == 0){ 
+				$value_metering = $HUMIDITY->getHUMIDITY($ext);
+				$value_metering = $value_metering * $factor;
+			}
+			else if ($type_split[1] == 1){
+				$value_metering = $HUMIDITY->getTemperature_C($ext);
+				$value_metering = $value_metering * $factor;
+			}
 			break;
 		}
 

@@ -26,12 +26,34 @@
   </div>
 
 <!-- start of page content  -->
-	<div class="container desk">
-	
+		<div class="container desk">
+		<div id="DNS_Service" class="databox info" style="border-radius:3px; min-width:100%;">
+			<div class="page-header">
+				<div class="row">
+					<h3 class="col-xs-2 text-right"><span class="glyphicon glyphicon-globe" style="color:grey;"></span></h3>
+					<h3 class="col-xs-5" style="color:#0087e8;">Eingestellte Zeitzone: </h3>
+					<h3 class="col-xs-5" id="actualtimezone" style="color:grey;"></h3>
+				</div>	
+			</div>
+			<div class="row">
+				<div class="input-group">
+					<span class="input-group-addon">Kontinent</span>
+					<input id="timezone_continent" type="text" class="form-control" disabled>
+					<span class="input-group-addon">Stadt</span>
+					<select id="timezone_city" type="text" class="form-control" ></select>
+					<span class="input-group-btn">
+						<button id="Button_set_timezone" class="btn btn-default" type="button" onclick="setTimeZone()">Add</button>
+					</span>
+				</div>
+				<br>
+			</div>
+		</div>
+		<br><br>
+
 	<!-- start of panel time -->
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h3><span class="glyphicon glyphicon-time"></span><b> System Zeit</b></h3>
+				<h3><span class="glyphicon glyphicon-time"></span><b> System Zeit - RTC</b></h3>
 			</div>
 		
 		<div class="panel-body">
@@ -53,7 +75,7 @@
   	<!-- start of panel date -->
 		<div class="panel panel-info"> 
 			<div class="panel-heading">
-				<h3><span class="glyphicon glyphicon-calendar"></span><b> System Datum</b></h3>
+				<h3><span class="glyphicon glyphicon-calendar"></span><b> System Datum - RTC</b></h3>
 			</div>
 		<div class="panel-body">
 		<div class = "row">

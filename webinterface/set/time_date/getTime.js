@@ -6,7 +6,7 @@
 sortoutcache = new Date();
 var offsetTime;
 
-function getlogindata(setget, url, cfunc, senddata){
+function setgetdata(setget, url, cfunc, senddata){
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = cfunc;
 	xhttp.open(setget,url,true);
@@ -15,7 +15,7 @@ function getlogindata(setget, url, cfunc, senddata){
 }
 
 function getloginstatus(callback1){
-	getlogindata("post","setgetTime.php",function()
+	setgetdata("post","/userLogStatus.php",function()
 			{
 				if (xhttp.readyState==4 && xhttp.status==200)
 					{
@@ -31,7 +31,44 @@ function getloginstatus(callback1){
 			});
 }
 
-	function getSystemTimeDate(){
+function getXMLData(callback4){
+	var getXMLData;
+	setgetdata("GET","/timezone.xml",function(){
+		
+		if (xhttp.readyState==4 && xhttp.status==200){
+			var getXMLData = xhttp.responseXML;
+			var Europe = getXMLData.getElementsByTagName("Europe");
+			document.getElementById("timezone_continent").value = "Europe";
+			for(i=0;i<(Europe.length);i++){
+				var y = document.getElementById("timezone_city");
+				var option1 = document.createElement("option");
+				option1.text = Europe[i].innerHTML;
+				y.options.add(option1);
+			}
+			
+		if (callback4){
+			callback4();
+			}
+		}	
+	});
+}
+
+function getsetTimeZone(callback){
+	setgetdata("post","setgetTime.php",function()
+		{
+			if (xhttp.readyState==4 && xhttp.status==200)
+			{
+				var timeZoneSet = JSON.parse(xhttp.responseText);
+				document.getElementById('actualtimezone').innerHTML = timeZoneSet.timezone;
+				if (callback1){
+					callback1();
+				}
+			}
+		},"getsetTimeZone=1");
+}
+
+
+	function getSystemTimeDate(callback){
 		if (!document.all && !document.getElementById)
 		return
 		var SystemTime = new Date();
@@ -61,9 +98,13 @@ function getloginstatus(callback1){
 	    		offsetTime = client - system;
 	    		DisplayTime();
 	    		DisplayDate();
-	    	}	
-	    }
+	    	}
+			if(callback){
+			callback();
 		}
+	
+	    }
+}
 
 	
 	function DisplayTime(){
@@ -139,9 +180,14 @@ function getloginstatus(callback1){
 	    }
 	    	    
 	    function startatLoad(){
-	    	loadNavbar();	
-	    	getSystemTimeDate();
-		}
+	    	loadNavbar(function(){
+			getXMLData(function(){
+				getsetTimeZone(function(){
+					getSystemTimeDate();
+				});
+			});
+		});	
+	    } 
 		window.onload=startatLoad;
 		
 		 $(document).ready(function(){
@@ -168,7 +214,7 @@ function getloginstatus(callback1){
 		 
 		//Load the top fixed navigation bar and highlight the 
 		//active site roots.
-		 function loadNavbar(){
+		 function loadNavbar(callback){
 			getloginstatus(function(){
 				if (LogInStatusCheck[0])
 				{
@@ -189,5 +235,10 @@ function getloginstatus(callback1){
 				{
 					window.location.replace("/login.html");
 				}
+				
+				if (callback){
+					callback();
+				}
+
 			});
 		 }

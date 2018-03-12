@@ -49,11 +49,17 @@ if($flag)
 			'adminstatus' => $adminstatus
 	);
 }
-else 
-{
-	$arr = array(	'loginstatus' => $loginstatus,
-			'adminstatus' => $adminstatus
-				);
+if (isset($_POST['getsetTimeZone'])){
+	if ($_POST['getsetTimeZone'] == 1){
+		$date = new DateTime(null);
+		$tz = $date->getTimezone();
+		$timezone_set = $tz->getName();
+		$arr = array( 'timezone' => $timezone_set);
+	}
+
+	else if ($_POST['getsetTimeZone'] == 0){
+		
+	}
 }
 	echo json_encode($arr);
 ?>

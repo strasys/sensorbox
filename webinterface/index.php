@@ -1,114 +1,34 @@
 <?php
-//error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL | E_STRICT);
 // Um die Fehler auch auszugeben, aktivieren wir die Ausgabe
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 //
 
 include_once ('/var/www/privateplc_php.ini.php');
 session_start();
-include_once ('/var/www/authentification.inc.php');
+//include_once ('/var/www/authentification.inc.php');
 include_once ('/var/www/hw_classes/PT1000.inc.php');
-include_once ('/var/www/hw_classes/GPIO.inc.php');
-include_once ('/var/www/hw_classes/AIN.inc.php');
+include_once ('/var/www/hw_classes/HUMIDITY.inc.php');
 
-unset($getLoginStatus, $getData);
-$getLoginStatus = $_POST['getLoginStatus'];
-$getData = $_POST['getData'];
-$setOutNumber = $_POST['setOutNumber'];
-$setOutValue = $_POST['setOutValue'];
-//$getLoginStatus = "g";
-unset($arr);
-$get = "g";
-$set = "s";
 
-if (($loginstatus == true) && ($getData == $get)){
-	$PT1000ex1 = new PT1000();
-	$GPIO = new GPIO();
-	$AIN = new AIN();
+	$PT1000ex1 = new PT1000;
+	$humidityex1 = new HUMIDITY;
 
-	$temperature[] = $PT1000ex1->getPT1000(1,2);
-	$temperature[] = $PT1000ex1->getPT1000(2,2);
+	$humidity_val_ex1 = $humidityex1->getHUMIDITY(2);
+	$humidity_temp_val_ex1 = $humidityex1->getTemperature_C(2);
 
-//get Composer status
-	$statusFile = fopen("/tmp/composerstatus.txt", "r");
-	if ($statusFile == false)
-	{
-		$statusFile = fopen("/tmp/composerstatus.txt", "w");
-		fwrite($statusFile, "stop");
-		fclose($statusFile);
-		$statusWord = "stop";
-	}
-	elseif ($statusFile)
-	{
-		$statusWord = trim(fgets($statusFile, 5));
-		fclose($status);
-	}
-	
-	switch ($statusWord){
-		case "stop":
-			$runstop = 0;
-			break;
-		case "run":
-			$runstop = 1; 
-			break;
-	}
+	$TEMPERATURE_val1 = $PT1000ex1->getPT1000(0,1);
+	$TEMPERATURE_val2= $PT1000ex1->getPT1000(1,1);
 
-//get GPIO out status
-	$gpioOUT = $GPIO->getOut();
-//get GPIO in status
-	$gpioIN = $GPIO->getIn();
-//get Analog in status
-	$AIN0val = $AIN->getAIN(0,1);
-	$AIN0 = round (($AIN0val * 0.024414),0);
-	$AIN1val = $AIN->getAIN(1,1);
-	$AIN1 = round(($AIN1val * 0.012207),0);
+	$arr = array ('humidity1' => $humidity_val_ex1,
+		'humidity_temp1' => $humidity_temp_val_ex1,
+		'temp1' => $TEMPERATURE_val1,
+		'temp2' => $TEMPERATURE_val2
+	);
 
-	transfer_javascript($loginstatus, $adminstatus, $temperature[0], $temperature[1], $runstop, $gpioOUT[0], $gpioOUT[1], $gpioOUT[2], $gpioOUT[3], $gpioOUT[4], $gpioIN[0], $gpioIN[1], $gpioIN[2], $AIN0, $AIN1);
-
-}
-
-if (($loginstatus == false) && ($getData == $get)){
-	$PT1000ex1 = new PT1000();
-	$GPIO = new GPIO();
-
-	$temperature[] = $PT1000ex1->getPT1000(1,2);
-	$temperature[] = $PT1000ex1->getPT1000(2,2);
-
-//get GPIO out status
-	unset($gpioOUT);
-	$gpioOUT = $GPIO->getOut();
-
-	transfer_javascript($loginstatus, $adminstatus, $temperature[0], $temperature[1],'null','null','null', $gpioOUT[2], $gpioOUT[3],'null','null','null','null');
-}
-//from all accessible Buttons => Light for Pool, etc.
-if (($getData == $set) && ($setOutNumber == 0 || $setOutNumber == 1 || $setOutNumber == 2 || $setOutNumber == 3)){
-	$GPIO = new GPIO();
-	unset($gpioOUT);
-	$gpioOUT = $GPIO->setOutsingle($setOutNumber,$setOutValue);
-}
-
-function transfer_javascript($loginstatus, $adminstatus, $temperature0, $temperature1, $runstop, $gpioOUT0, $gpioOUT1, $gpioOUT2, $gpioOUT3, $gpioOUT4, $gpioIN0, $gpioIN1, $gpioIN2, $AIN0, $AIN1)
-{
-	$arr = array(	'loginstatus' => $loginstatus,
-			'adminstatus' => $adminstatus,
-			'pooltemp' => $temperature0,
-			'outsidetemp' => $temperature1,
-			'OperationMode' => $runstop,
-			'statusMixer' => $gpioOUT0,
-			'statusPump' => $gpioOUT1,
-			'statusPoolLight' => $gpioOUT2,
-			'statusOutLight' => $gpioOUT3,
-			'statusFreshwaterValve' => $gpioOUT4,
-			'statusNiveauSensor' => $gpioIN0,
-			'statusMixerSolar' => $gpioIN1,
-			'statusMixerBypass' => $gpioIN2,
-			'Feuchte' => $AIN0,
-			'Temperatur' => $AIN1
-				);
 
 	echo json_encode($arr);
-}
 
 
 ?>

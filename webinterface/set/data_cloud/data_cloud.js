@@ -63,6 +63,7 @@ function sethardwarehtmlinterface(callback){
 	var counter_PT1000 = 0;
 	var counter_AOUT = 0;
 	var counter_AIN = 0;
+	var counter_HUMIDITY = 0;
 	var i=0;
 	for (i=0;i<4;i++){
 		switch(EEPROMext[i]) {
@@ -91,6 +92,16 @@ function sethardwarehtmlinterface(callback){
 				var idData = "AIN"+counter_AIN;
 				var header = "Analoge Eingänge";
 				var selectVal = "AIN";
+				loadExtensions(i+1, idData, header, function(){
+					setSelectExt(idData+"_Select_Val", selectVal, idData+"_Select_Interval", function(){
+					});
+				});
+				break;
+			case "HUMIDITY":
+				counter_AIN += 1;
+				var idData = "HUMIDITY"+counter_HUMIDITY;
+				var header = "Feuche Sensor Eingänge";
+				var selectVal = "HUMIDITY";
 				loadExtensions(i+1, idData, header, function(){
 					setSelectExt(idData+"_Select_Val", selectVal, idData+"_Select_Interval", function(){
 					});
@@ -137,7 +148,7 @@ function setSelectDigiOutput(callback){
 
 function setSelectExt(idSelectVal, selectVal, idSelectInterval, callback){
 	var i=0;
-		for(i=0;i<4;i++){
+		for(i=0;i<2;i++){
 			var y = document.getElementById(idSelectVal);
 			var option1 = document.createElement("option");
 			option1.text = selectVal+"_"+(i);
@@ -270,16 +281,16 @@ function setDataPushModeXML(radioID){
 // load functions ad webpage opening
 function startatLoad(){
 	loadNavbar(function(){
-		setSelectDigiOutput(function(){
-			setSelectDigiInput(function(){
+	//	setSelectDigiOutput(function(){
+		//	setSelectDigiInput(function(){
 				getExtensions(function(){
 					getXMLDataCloud(function(){
 						sethardwarehtmlinterface();
 					});
 				});
-			});
+	//		});
 	
-		});
+	//	});
 	});
 }
 window.onload=startatLoad();
