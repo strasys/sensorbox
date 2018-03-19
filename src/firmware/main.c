@@ -29,8 +29,7 @@
 
 
 void init(void){
-	//char command[255];
-	init_RTC(I2C1_path);
+
 	init_GPIO(2);
 	//The mainboard EEPROM must be unbind
 	EEPROMinit(1, 54);
@@ -79,19 +78,40 @@ void getFormatForDate(char * pDateTime) {
 			RTC_get_day(I2C1_path), RTC_get_hours(I2C1_path), RTC_get_minutes(I2C1_path), RTC_get_year(I2C1_path));
 }
 
+//read if RTC is set as main clock
+//if RTC = 1; => RTC is considered as main clock
+void initRTC(void){
+	unsigned int regreadstart = 512;
+	unsigned int regreadnumberbyte = 64;
+	char eepromdata[255], str_status_RTC[10];
+
+	EEPROMreadbytes(regreadstart, eepromdata, addr_EEPROMmain, I2C2_path, regreadnumberbyte);
+	char tempstring[70];
+	strcpy(tempstring, eepromdata);
+	const char delimiters[] = ":";
+	strtok(tempstring, delimiters);
+	strcpy(str_status_RTC, strtok(NULL, delimiters));
+
+	printf("str_status_RTC: %s\n", str_status_RTC);
+
+	if (strcmp(str_status_RTC, "ON") == 0){
+		//time beaglebone with RTC
+		//set time on beaglebone according to RTC time
+		// at start up.
+		init_RTC(I2C1_path);
+		char command[128];
+		char dateTime[13];
+		getFormatForDate(dateTime);
+		sprintf(command,"date -u %s",dateTime);
+		system(command);
+	}
+}
 
 int main(int argc, char *argv[], char *env[])
 {
 
 		init();
-
-		//set time on beaglebone according to RTC time
-		// at start up.
-			char command[128];
-			char dateTime[13];
-			getFormatForDate(dateTime);
-					sprintf(command,"date -u %s",dateTime);
-					system(command);
+		initRTC();
 
 	return (0);
 }
