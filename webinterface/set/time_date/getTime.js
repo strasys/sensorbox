@@ -53,22 +53,41 @@ function getXMLData(callback4){
 	});
 }
 
-function getsetTimeZone(callback){
+function getTimeZone(flag, callback1){
 	setgetdata("post","setgetTime.php",function()
 		{
 			if (xhttp.readyState==4 && xhttp.status==200)
 			{
 				var timeZoneSet = JSON.parse(xhttp.responseText);
-				document.getElementById('actualtimezone').innerHTML = timeZoneSet.timezone;
+				document.getElementById('actualtimezone').innerHTML = "Zeitzone: "+timeZoneSet.timezone;
+				document.getElementById('actuallocaltime').innerHTML = "lokal Zeit/Datum: "+timeZoneSet.local_time;
+				document.getElementById('actualUTCtime').innerHTML = "UTC Zeit/Datum: "+timeZoneSet.UNIX_time;
+				var str_ntpserver = timeZoneSet.ntp_server;
+				var str_split = str_ntpserver.split("/");
+				document.getElementById('ntp_server').innerHTML = "ntp Server: <br>"+str_split[0]+"<br>"+str_split[1]+"<br>"+str_split[2];
+				if (callback1){
+					callback1(timeZoneSet.timezone);
+				}
+			}
+		},"getsetTimeZone="+flag);
+}
+
+function setTimeZone(flag, callback1){
+	var continent = document.getElementById('timezone_continent').value;
+	var city = document.getElementById('timezone_city').value;
+	var timezone = continent+"/"+city;
+	setgetdata("post","setgetTime.php",function()
+		{
+			if (xhttp.readyState==4 && xhttp.status==200)
+			{
 				if (callback1){
 					callback1();
 				}
 			}
-		},"getsetTimeZone=1");
+		},"getsetTimeZone="+flag+"&timezone="+timezone);
 }
-
-
-	function getSystemTimeDate(callback){
+	
+function getSystemTimeDate(callback){
 		if (!document.all && !document.getElementById)
 		return
 		var SystemTime = new Date();
@@ -107,7 +126,8 @@ function getsetTimeZone(callback){
 }
 
 	
-	function DisplayTime(){
+	
+function DisplayTime(){
 		if (!document.all && !document.getElementById)
 		return
 		timeElement=document.getElementById("curTime");
@@ -117,7 +137,8 @@ function getsetTimeZone(callback){
 		t = setTimeout(function(){DisplayTime()}, 1000);
 		}
 	
-		function DisplayDate(){
+	
+function DisplayDate(){
 		if (!document.all && !document.getElementById)
 		return
 		dateElement=document.getElementById("curDate");
@@ -129,7 +150,8 @@ function getsetTimeZone(callback){
 		
 		var sST;
 		   
-	    function setSystemTime()
+	    
+function setSystemTime()
 	    { 
 	    var hh = document.getElementById("inputhh").value;
 	    var mm = document.getElementById("inputmm").value;
@@ -141,7 +163,8 @@ function getsetTimeZone(callback){
 	    sST.onreadystatechange = auswerten; 
 	    } 
 	    
-	    function auswerten()
+	   
+function auswerten()
 	    {
 	      if(sST.readyState == 4 && sST.status == 200)
 	        {
@@ -149,7 +172,8 @@ function getsetTimeZone(callback){
 	        }
 	    }
 	    
-	    function setSystemDate()
+	    
+function setSystemDate()
 	    { 
 	    var Day = document.getElementById("inputDD").value;
 	    var Month = document.getElementById("inputMM").value;
@@ -162,7 +186,8 @@ function getsetTimeZone(callback){
 	    sST.onreadystatechange = auswerten; 
 	    } 
 	    
-	    function auswerten()
+	    
+function auswerten()
 	    {
 	      if(sST.readyState == 4 && sST.status == 200)
 	        {
@@ -170,7 +195,7 @@ function getsetTimeZone(callback){
 	        }
 	    }
 	    
-	    function setSelectMenues(min, max, idName){
+function setSelectMenues(min, max, idName){
 	    	for(i=min; i <= max; i++){
 	    	var x = document.getElementById(idName);
 	    	var option = document.createElement("option");
@@ -178,16 +203,27 @@ function getsetTimeZone(callback){
 	    	x.options.add(option);
 	    	}
 	    }
-	    	    
-	    function startatLoad(){
+
+function showhide_at_load(callback){
+	$("#ntp_timezone_set").hide();
+	$("#RTC_time").hide();
+	$("#RTC_date").hide();
+	if(callback){
+		callback();
+	}
+}
+	    
+function startatLoad(){
+	showhide_at_load(function(){
 	    	loadNavbar(function(){
 			getXMLData(function(){
-				getsetTimeZone(function(){
+				getTimeZone(1, function(){
 					getSystemTimeDate();
 				});
 			});
-		});	
-	    } 
+		});
+	});	
+} 
 		window.onload=startatLoad;
 		
 		 $(document).ready(function(){
@@ -210,7 +246,7 @@ function getsetTimeZone(callback){
 				  $("#showSetSystemDate").hide();
 				 });
 		  	  });
-		  	});
+		 });
 		 
 		//Load the top fixed navigation bar and highlight the 
 		//active site roots.
@@ -242,3 +278,25 @@ function getsetTimeZone(callback){
 
 			});
 		 }
+
+//jQuery - Funktionen
+$(document).ready(function(){
+    $("#Button_show_settimezone").click(function(){
+        $("#ntp_timezone_set").toggle(function(){
+		getTimeZone(1, function(str_timezone){
+			var str_res = str_timezone.split("/");
+			document.getElementById("timezone_city").value = str_res[1];	
+		});
+	});
+    });
+});
+
+$("#Button_set_timezone").click(function(){
+	setTimeZone(0, function(){
+		getTimeZone(1);
+	});	
+});
+
+$("#Button_refresh_time").click(function(){
+	getTimeZone(1);
+});

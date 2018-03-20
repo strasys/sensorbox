@@ -10,7 +10,6 @@ session_start();
 include_once ('/var/www/authentification.inc.php');
 
 	$td;
-	$ausgabe;
 	$arr;
 	unset($td);
 	unset($ausgabe);
@@ -51,14 +50,32 @@ if($flag)
 }
 if (isset($_POST['getsetTimeZone'])){
 	if ($_POST['getsetTimeZone'] == 1){
-		$date = new DateTime(null);
+		//get time Zone data from XML
+		$xml=simplexml_load_file("/var/www/VDF.xml") or die("Error: Cannot create object");
+		$XMLData[0] = (string)($xml->timedate->timezone);
+		$XMLData[1] = (string)($xml->timedate->ntpserver);
+
+		$date = new DateTime("now", new DateTimeZone($XMLData[0]));
+	//	$date = new DateTime(null);
 		$tz = $date->getTimezone();
 		$timezone_set = $tz->getName();
-		$arr = array( 'timezone' => $timezone_set);
+		$unix_date = new DateTime("now", new DateTimeZone('UTC'));
+		//get actual time
+	//	date_default_timezone_set('Europe/Berlin');
+		$local_time = $date->format('H:i:s / d.m.Y');
+		$unix_time_formated = $unix_date->format('H:i:s / d.m.Y');
+		$arr = array( 	'timezone' => $timezone_set,
+			'local_time' => $local_time,
+			'UNIX_time' => $unix_time_formated,
+			'ntp_server' => $XMLData[1]);
+		
 	}
 
 	else if ($_POST['getsetTimeZone'] == 0){
-		
+		//set time Zone data to XML
+		$xml=simplexml_load_file("/var/www/VDF.xml") or die("Error: Cannot create object");
+		$xml->timedate->timezone = $_POST['timezone'];
+		echo $xml->asXML("/var/www/VDF.xml");		
 	}
 }
 	echo json_encode($arr);

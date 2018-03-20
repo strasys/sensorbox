@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wistcon-pool>
-
+<sensingbox>
 <PT1000>
 	<PT1000Name1>Außen Temp.</PT1000Name1>
 </PT1000>
@@ -43,59 +42,17 @@
 <data_cloud>
 <datatocloud>HUMIDITY_0:2:humidity_val1:5:% r.F.:1</datatocloud><datatocloud>HUMIDITY_1:2:humidity_temp_val1:5:°C:1</datatocloud></data_cloud>
 
-<ButtonText>
-	<RinseBackButton>Rückspülen</RinseBackButton>
-</ButtonText>
-
-<CleaningInterval>
-	<Start>14:40</Start>
-	<Stop>17:30</Stop>
-	<Periode>02:50</Periode>
-</CleaningInterval>
-<CleaningInterval>
-	<Start>00:00</Start>
-	<Stop>00:00</Stop>
-	<Periode>00:00</Periode>
-</CleaningInterval>
-<CleaningInterval>
-	<Start>00:00</Start>
-	<Stop>00:00</Stop>
-	<Periode>00:00</Periode>
-</CleaningInterval>
-<CleaningInterval>
-	<Start>00:00</Start>
-	<Stop>00:00</Stop>
-	<Periode>00:00</Periode>
-</CleaningInterval>
-<CleaningSetting>
-	<OperationMode>OFF</OperationMode>
-	<tipCleaningTime>0</tipCleaningTime>
-</CleaningSetting>
-<SolarSetting>
-	<operationMode>AUTO</operationMode>
-	<backWaterTemp>28</backWaterTemp>
-	<diffONTemp>7</diffONTemp>
-	<diffOFFTemp>5</diffOFFTemp>
-	<SwitchOFFdelay>2</SwitchOFFdelay>
-	<SwitchONdelay>2</SwitchONdelay>
-</SolarSetting>
-<LevelControl>
-	<operationMode>OFF</operationMode>
-	<Overtraveltime>20</Overtraveltime>
-	<SensorONTime>5</SensorONTime>
-</LevelControl>
-<RinseBackSetting>
-	<timebetweenRinseBack>21</timebetweenRinseBack>
-	<RinseBackTime>5</RinseBackTime>
-	<RinseBackClearing>3</RinseBackClearing>
-</RinseBackSetting>
 <OperationModeDevice>
 	<AutomaticHand>stop</AutomaticHand>
 	<DNSService>run</DNSService>
 	<PushDataCloudService>stop</PushDataCloudService>
 </OperationModeDevice>
+<timedate>
+	<timezone>Europe/Berlin</timezone>
+	<ntpserver>ntp1.hetzner.de/ntp2.hetzner.com/ntp3.hetzner.net</ntpserver>
+</timedate>
 <Owner>
 	<email/>
 	<userName/>
 </Owner>
-<PT1000><PT1000Name1/></PT1000><PT1000><PT1000Name1/></PT1000></wistcon-pool>
+</sensingbox>

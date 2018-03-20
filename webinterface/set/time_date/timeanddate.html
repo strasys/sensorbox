@@ -26,76 +26,74 @@
   </div>
 
 <!-- start of page content  -->
-		<div class="container desk">
-		<div id="DNS_Service" class="databox info" style="border-radius:3px; min-width:100%;">
+	<div class="container desk">
+		<div id="ntp_time" class="databox info" style="border-radius:3px; min-width:100%;">
 			<div class="page-header">
 				<div class="row">
-					<h3 class="col-xs-2 text-right"><span class="glyphicon glyphicon-globe" style="color:grey;"></span></h3>
-					<h3 class="col-xs-5" style="color:#0087e8;">Eingestellte Zeitzone: </h3>
-					<h3 class="col-xs-5" id="actualtimezone" style="color:grey;"></h3>
+					<div class="col-md-6 col-xs-12">
+						<h3 style="color:#0087e8;"><span class="glyphicon glyphicon-globe"></span><strong> Zeit Einstellung Gerät:</strong></h3>	
+					</div>
+					<div class="col-md-6 col-xs-12>">
+						<button id="Button_show_settimezone" class="btn btn-default" type="button">Zeitzone ändern</button>
+						<button id="Button_refresh_time" class="btn btn-default" type="button">Zeit aktualisieren</button>
+					</div>
 				</div>	
 			</div>
 			<div class="row">
-				<div class="input-group">
-					<span class="input-group-addon">Kontinent</span>
-					<input id="timezone_continent" type="text" class="form-control" disabled>
-					<span class="input-group-addon">Stadt</span>
-					<select id="timezone_city" type="text" class="form-control" ></select>
-					<span class="input-group-btn">
-						<button id="Button_set_timezone" class="btn btn-default" type="button" onclick="setTimeZone()">Add</button>
-					</span>
+				<div class="col-md-6 col-xs-12">
+					<h4 id="actualtimezone" style="color:grey;"></h4>
+					<h4 id="ntp_server" style="color:grey;"></h4>
 				</div>
-				<br>
+				<div class="col-md-6 col-xs-12">
+					<h4 id="actuallocaltime" style="color:grey;"></h4>
+					<h4 id="actualUTCtime" style="color:grey;"></h4>
+				</div>
 			</div>
 		</div>
-		<br><br>
-
-	<!-- start of panel time -->
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h3><span class="glyphicon glyphicon-time"></span><b> System Zeit - RTC</b></h3>
+		<div id="ntp_timezone_set" class="databox info" style="border-radius:3px; min-width:100%;">
+			<div class="page-header">
+				<h3>Zeitzone ändern</h3>
 			</div>
-		
-		<div class="panel-body">
-		<div class = "row">
-			<div class = "col-md-2 col-xs-12">
-    			<h3 id="curTime"></h3>
-    		</div>
-    		<div class = "col-md-2 col-xs-12">
-    			<h3><button class="btn btn-default" id="showSetSystemTime">System Zeit ändern</button></h3>
-    		</div>
-		</div>
-		
-   		<div class="row" id="timeDiv">
- 	<!-- Load setTime.html on button click showSetSystemtTime -->
-		</div>
-    	</div>
-  		</div>
- 		
-  	<!-- start of panel date -->
-		<div class="panel panel-info"> 
-			<div class="panel-heading">
-				<h3><span class="glyphicon glyphicon-calendar"></span><b> System Datum - RTC</b></h3>
+			<div class="input-group">
+				<span class="input-group-addon">Kontinent</span>
+				<input id="timezone_continent" type="text" class="form-control" disabled>
+				<span class="input-group-addon">Stadt</span>
+				<select id="timezone_city" type="text" class="form-control" ></select>
+				<span class="input-group-btn">
+					<button id="Button_set_timezone" class="btn btn-default" type="button">Set</button>
+				</span>
 			</div>
-		<div class="panel-body">
-		<div class = "row">
-			
-			<div class = "col-md-2 col-xs-12">
+			<br>
+		</div>
+		<!-- start of panel time -->
+		<div id="RTC_time" class="databox info" style="border-radius:3px; min-width:100%;">
+			<div class="page-header">
+				<h3 style="color:#0087e8;"><span class="glyphicon glyphicon-time"></span><b> System Zeit - RTC</b></h3>
+			</div>
+			<div>
+    				<h3 id="curTime"></h3>
+				<h3><button class="btn btn-default" id="showSetSystemTime">System Zeit ändern</button></h3>
+				<div class="row" id="timeDiv">
+ 					<!-- Load setTime.html on button click showSetSystemtTime -->
+				</div>
+			</div>
+			<br>
+		</div>
+		<div id="RTC_date" class="databox info"style="border-radius:3px; min-width:100%;">
+			<div class="page-header">
+				<h3 style="color:#0087e8;"><span class="glyphicon glyphicon-calendar"></span><b> System Datum - RTC</b></h3>
+			</div>
+			<div>
 				<h3><div id="curDate"></div></h3>
-			</div>
-			<div class = "col-md-2 col-xs-12">
 				<h3><button class="btn btn-default" id="showSetSystemDate">System Datum ändern</button></h3>
+				<div class="row" id="dateDiv">			
+	 			<!-- Load setDate.html on button click showSetSystemtDate -->
+				</div>	
 			</div>
-		</div>
-		
-		<div class="row" id="dateDiv">			
-	 	<!-- Load setDate.html on button click showSetSystemtDate -->
-		</div>	
-		</div>
 		</div>
 	</div>
-
-	
+ 		
+  	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/jQuery/3.2.1/jquery.min.js"></script> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
