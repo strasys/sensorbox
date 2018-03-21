@@ -72,10 +72,14 @@ if (isset($_POST['getsetTimeZone'])){
 	}
 
 	else if ($_POST['getsetTimeZone'] == 0){
+		include_once('/var/www/set/time_date/setCloudTimeZone.inc.php');
+		//set time Zone to cloud
+		$setCloudTZ = new setCloudDeviceTimeZone;
+		$arr = $setCloudTZ->setTZtoCoud($_POST['timezone']);
 		//set time Zone data to XML
 		$xml=simplexml_load_file("/var/www/VDF.xml") or die("Error: Cannot create object");
 		$xml->timedate->timezone = $_POST['timezone'];
-		echo $xml->asXML("/var/www/VDF.xml");		
+		$xml->asXML("/var/www/VDF.xml");		
 	}
 }
 	echo json_encode($arr);

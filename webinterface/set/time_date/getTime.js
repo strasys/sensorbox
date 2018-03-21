@@ -292,8 +292,10 @@ $(document).ready(function(){
 });
 
 $("#Button_set_timezone").click(function(){
+	$("<div class=\"loader pos-rel\"></div>").appendTo("#ntp_timezone_set .page-header");
 	setTimeZone(0, function(){
 		getTimeZone(1);
+		$("#ntp_timezone_set .page-header div.loader").remove();
 	});	
 });
 
