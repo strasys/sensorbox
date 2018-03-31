@@ -20,33 +20,33 @@ then
 	wget --no-host-directories --directory-prefix=/tmp/wistcon-020 --cut-dirs=3 --	recursive --no-parent http://HP-Max/wistcon/EL-100-020/wistcon-020_vers_1_0.tar
 	wait
 else
-	read -p "Please transfer your wistcon-DRC-020.tar file to /tmp folder!
+	read -p "Please transfer your wistcon-sensing.tar file to /tmp folder!
 		And than press (s)tart!" ANSW
 	if ["$ANSW" -ne "s"]
 	then
 		exit 1
 	else 	
 		echo "generate folder to extract"
-		mkdir /tmp/wistcon-DRC-020/
+		mkdir /tmp/wistcon-sensing/
 		wait
 		cd /tmp/
 		echo "extracting ..."
-		tar -xvf wistcon-DRC-020.tar -C /tmp/wistcon-DRC-020/ 
+		tar -xvf wistcon-sensing.tar -C /tmp/wistcon-sensing/ 
 		wait
 		echo "generate folder /var/secure/"
 		mkdir /var/secure/
 		wait
 		echo "Copy password file user.txt to /var/secure/"
-		cp /tmp/wistcon-DRC-020/webinterface/user.txt /var/secure/
+		cp /tmp/wistcon-sensing/webinterface/user.txt /var/secure/
 		wait
-		echo "remove user.txt from /tmp/wistcon-DRC-020/webinterface/"
-		rm /tmp/wistcon-DRC-020/webinterface/user.txt
+		echo "remove user.txt from /tmp/wistcon-sensing/webinterface/"
+		rm /tmp/wistcon-sensing/webinterface/user.txt
 		wait
 		echo "Copy webcontent to /var/www"
-		cp -rT /tmp/wistcon-DRC-020/webinterface/ /var/www/
+		cp -rT /tmp/wistcon-sensing/webinterface/ /var/www/
 		wait
 		echo "Copy firmware files to /usr/lib/cgi-bin"
-		cp -rT /tmp/wistcon-DRC-020/firmware/ /usr/lib/cgi-bin/
+		cp -rT /tmp/wistcon-sensing/firmware/ /usr/lib/cgi-bin/
 		wait
 		echo "Change drive /usr/lib/cgi-bin/"
 		cd /usr/lib/cgi-bin/
@@ -60,11 +60,11 @@ else
 		echo "clean init_wistcon-020.service from /usr/lib/cgi-bin/"
 		rm init_wistcon-020.service
 		wait
-		echo "Copy wistcon-DRC020-00A0.dtbo to /lib/firmware/"
-		cp wistcon-DRC020-00A0.dtbo /lib/firmware/
+		echo "Copy wistcon-sensing-00A0.dtbo to /lib/firmware/"
+		cp wistcon-sensing-00A0.dtbo /lib/firmware/
 		wait
-		echo "Clean wistcon-DRC020-00A0.dtbo from /usr/lib/cgi-bin/"
-		rm wistcon-DRC020-00A0.dtbo
+		echo "Clean wistcon-sensing-00A0.dtbo from /usr/lib/cgi-bin/"
+		rm wistcon-sensing-00A0.dtbo
 		wait
 		echo "move to /lib/systemd/system/"
 		cd /lib/systemd/system/

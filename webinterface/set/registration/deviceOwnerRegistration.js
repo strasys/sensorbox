@@ -618,7 +618,7 @@ showandhide(function(){
 					$("<div id=\"registered\"><h3 style=\"color:green;\"><strong>Produkt ist registriert!</strong></h3>"+
 					"<br>"+
 					"<p><strong>Eigentümer: "+DataStatus.gender+" "+DataStatus.firstname+" "+DataStatus.familyname+"</strong></p>"+
-					"<p><strong>wiscton Cloud Anmeldeinformationen:</strong></p>"+
+					"<p><strong>wistcon Cloud Anmeldeinformationen:</strong></p>"+
 					"<p> e-Mail Adresse / Benutzername: <strong>"+DataStatus.email+"</strong></p>"+
 					"<p> Gerätename: <strong>"+DataStatus.productname+"</strong></p>"+
 					"<br>"+
