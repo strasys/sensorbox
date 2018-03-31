@@ -41,8 +41,8 @@ float getSHT30single_humidity(int I2Caddr){
 	int data[4]; //read out data
 	int input[2]; //commands
 
-	input[0] = MSB_clock;
-	input[1] = LSB_clock_high;
+	input[0] = MSB_noclock;
+	input[1] = LSB_noclock_high;
 	int delay = 100000;
 	getSHT30_measurement_data(data, I2Caddr, input, 'H', delay);
 
@@ -58,6 +58,7 @@ float getSHT30single_humidity(int I2Caddr){
 	}
 
 	else relHumidity = 100 * data[2] / (pow(2, 16) - 1);
+
 	return relHumidity;
 }
 
@@ -65,14 +66,15 @@ float getSHT30single_temperature(char selector, int I2Caddr){
 	int data[4]; //read out data
 	int input[2]; //commands
 
-	input[0] = MSB_clock;
-	input[1] = LSB_clock_high;
+	input[0] = MSB_noclock;
+	input[1] = LSB_noclock_high;
 	int delay = 100000;
 	getSHT30_measurement_data(data, I2Caddr, input, 'T', delay);
 	//calc checksum
 	unsigned int checksum = getSHT30checksum(data, 2);
 	//calc temperature
 	float temperature;
+
 	if (data[3] != checksum){
 		//read again
 		setSHT30_softreset(I2Caddr);
@@ -84,6 +86,7 @@ float getSHT30single_temperature(char selector, int I2Caddr){
 		if (selector == 'C') temperature = -45 + 175 * data[2] / (pow(2, 16) - 1);
 		else if (selector == 'F') temperature = -49 + 315 * data[2] / (pow(2, 16) - 1);
 	}
+
 	return temperature;
 }
 
