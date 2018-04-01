@@ -95,7 +95,12 @@ int main(int argc, char *argv[], char *env[]){
 				"P9_14 50 OUTPUT RUN \n"
 				"P9_15 48 OUTPUT ERROR \n"
 				"P9_23 49 OUTPUT DIGIOUT_UART2 \n"
-				"P9_27 115 OUTPUT DIGIOUT_UART1 \n");
+				"P9_27 115 OUTPUT DIGIOUT_UART1 \n"
+				"GPIO_handler [s, g] [I, O] [No. Output][ON = 1, OFF = 0] \n"
+				"example:\n"
+				"GPIO_handler_020 s 12 1\n"
+				"GPIO_handler_020 g I\n"
+				"GPIO_handler_020 g O\n");
 	}
 
 	return 0;
