@@ -91,3 +91,7 @@ $("#pushButtonSetup").on('click', function(){
 	window.location = "/set/parameter/pushButton/pushButtonSensing.html?ver=0";
 });
 
+$("#indicatorLEDService").on('click', function(){
+	window.location = "/set/parameter/indicator_LED/indicatorLEDService.html?ver=0";
+});
+

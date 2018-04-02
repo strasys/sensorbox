@@ -28,6 +28,7 @@ $DNSService = $xml->OperationModeDevice[0]->DNSService;
 $ComposerService = $xml->OperationModeDevice[0]->AutomaticHand;
 $pushButtonSensingService = $xml->OperationModeDevice[0]->pushButtonSensing;
 $PushDataCloudService = $xml->OperationModeDevice[0]->PushDataCloudService;
+$indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 
 //Set status of DNSService
 	$statusFile = fopen("/tmp/DNSservicestatus.txt", "w");
@@ -132,6 +133,32 @@ $PushDataCloudService = $xml->OperationModeDevice[0]->PushDataCloudService;
 				$speed = 100;
 				$sensingClass->setInputforSensing($arrforSensingSet,$speed);
 		}
+	}
+
+//Set status of indicator LED Service
+	unset($statusFile, $statusWord);
+	$statusFile = fopen("/tmp/indicatorLEDstatus.txt", "w");
+	if ($statusFile == false)
+	{
+		$errorMsg = "Error: fopen\"/tmp/indicatorLEDstatus.txt\", \"w\" ";
+		break;
+	}
+	elseif ($statusFile)
+	{
+		exec("chown www-data:root /tmp/indicatorLEDstatus.txt");
+		switch (($PushDataCloudService)){
+			case 'stop':
+				$statusWord = "stop";
+				writestatus($statusWord, $statusFile);
+				break;
+			case 'run':
+				$statusWord = "run";
+				writestatus($statusWord, $statusFile);
+				$cmd = "php /var/www/set/parameter/indicator_LED/indicatorLEDServicetask.php";
+				exec($cmd . " > /dev/null &");
+				break;
+		}
+
 	}
 
 ?>

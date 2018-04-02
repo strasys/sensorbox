@@ -1,9 +1,9 @@
 <?php
 // Gibt an welche PHP-Fehler �berhaupt angezeigt werden
-error_reporting(E_ALL | E_STRICT);
+//error_reporting(E_ALL | E_STRICT);
 // Um die Fehler auch auszugeben, aktivieren wir die Ausgabe
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
 // Da man in einem Produktivsystem �blicherweise keine Fehler ausgeben
 // will sondern sie nur mitloggen will, bietet es sich an dort die
 // Ausgabe der Fehler zu deaktivieren und sie stattdessen in ein Log-File
@@ -47,6 +47,7 @@ while ($loopstatus){
 			$FetchXMLData[$i]['timestamp'],
 			$DeviceID
 		);
+
 		if($SendData != NULL){
 			$transfer[$t] = $SendData;
 			//set timestamp to calculate next push ivent
@@ -55,9 +56,10 @@ while ($loopstatus){
 			
 		}
 	}
-
-	if ($transfer != NULL){
-		$DataCloudClass->SendData($transfer);	
+		if ($transfer != NULL){
+		$return = $DataCloudClass->SendData($transfer);
+		$return_arr = $DataCloudClass->DatabaseSendData_return($return);
+		$DataCloudClass->XMLDataWriteSendStatus($return_arr['database_write']);
 	}
 	
 /*	print_r($transfer);

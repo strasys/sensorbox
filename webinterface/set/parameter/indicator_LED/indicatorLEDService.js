@@ -24,49 +24,46 @@ function setgetServer(setget, url, cfunc, senddata){
  */
 
 function getStatusLogin(callback1){
-		setgetServer("post","DNSservicehandler.php",function()
+		setgetServer("post","../../../userLogStatus.php",function()
 		{
 			if (xhttp.readyState==4 && xhttp.status==200)
 			{
-			var getDNSserviceLogin = JSON.parse(xhttp.responseText); 
+			var Log = JSON.parse(xhttp.responseText); 
 			
-			LoginStatus = [(getDNSserviceLogin.loginstatus),
-			               (getDNSserviceLogin.adminstatus)
-			               ];
 				if (callback1){
-				callback1();
+				callback1(Log);
 				}
 			}
-		},"getLoginStatus=g");		
+		});		
 }
 /*
  * This function set's and get's the status of the composer process.
  * If the composer script is running StatusComposerProcess = 1 else 0.
+ * setget =  (g = get) / (s = set)
+ * setrunstopStatus = (run = true) / (stop = false)
  */
-function setgetStatusDNSservice(setget,setrunstopStatus, callback2){
-		setgetServer("post","DNSservicehandler.php",function()
+function setgetStatusLEDservice(setget, setrunstopStatus, callback2){
+		setgetServer("post","indicatorLEDservicehandler.php",function()
 			{
 				if (xhttp.readyState==4 && xhttp.status==200)
 				{
-				var setgetDNSserviceStatus = JSON.parse(xhttp.responseText); 
-				
-				StatusDNSservice = [(setgetDNSserviceStatus.runstop)
-				                         ];
+				var setgetStatus = JSON.parse(xhttp.responseText); 
+
 					if (callback2){
-					callback2();
+					callback2(setgetStatus);
 					}
 				}
-			},"setgetDNSserviceStatus="+setget+"&setrunstopStatus="+setrunstopStatus);		
+			},"setgetLEDserviceStatus="+setget+"&setrunstopStatus="+setrunstopStatus);		
 }
 
-function setModeStatus(){
-	if(StatusDNSservice[0] == 1){
-		document.getElementById("radioDNSServiceON").checked = true;
-		document.getElementById("radioDNSServiceOFF").checked = false;
+function setModeStatus(LEDServiceStatus){
+	if(LEDServiceStatus.runstop == 1){
+		document.getElementById("radioindicatorLEDServiceON").checked = true;
+		document.getElementById("radioindicatorLEDServiceOFF").checked = false;
 	}
-	else if (StatusDNSservice[0] == 0){
-		document.getElementById("radioDNSServiceON").checked = false;
-		document.getElementById("radioDNSServiceOFF").checked = true;
+	else if (LEDServiceStatus.runstop == 0){
+		document.getElementById("radioindicatorLEDServiceON").checked = false;
+		document.getElementById("radioindicatorLEDServiceOFF").checked = true;
 	}
 }
 
@@ -82,8 +79,8 @@ window.onload=startatLoad();
 //active site roots.
 //Check if the operater is already loged on the system as admin.
  function loadNavbar(callback1){
-			getStatusLogin(function(){
-				if (LoginStatus[0])
+			getStatusLogin(function(Log){
+				if (Log.adminstatus)
 				{
 					$(document).ready(function(){
 						$("#mainNavbar").load("/navbar.html?ver=2", function(){
@@ -107,8 +104,8 @@ window.onload=startatLoad();
   * Refresh status of composer information's.
   */
  function refreshStatus(){
-	 	setgetStatusDNSservice("g","", function(){
-			setModeStatus();
+	 	setgetStatusLEDservice("g","", function(statusLED){
+			setModeStatus(statusLED);
 		});
-		setTimeout(function(){refreshStatus()}, 2000);
+		setTimeout(function(){refreshStatus()}, 20000);
 	}

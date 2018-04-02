@@ -40,7 +40,7 @@ function DatabaseRegistrationStatus_return($return){
 
 	$returnData = explode("&", $return);
 	$returnDataValues = array();
-	for ($i=0;$i<9;$i++){
+	for ($i=0;$i<2;$i++){
 		$temp = explode(":", $returnData[$i]);
 		$returnDataValues[$i] = $temp[1];
 	}

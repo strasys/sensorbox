@@ -54,10 +54,10 @@ function getXMLData()
 function getDatatoSend($type, $ext, $metering_ID, $time_interval, $unit, $factor, $timelastsend, $DeviceID){
 	
 	$timestamp_now = time();
-	echo $timestamp_now."<br>";
+	//echo $timestamp_now."<br>";
 	$diff_time = $timestamp_now - $timelastsend;
 	$time_interval_seconds = $time_interval * 60;
-	echo $diff_time."<br>";
+	//echo $diff_time."<br>";
 	if ($diff_time >= $time_interval_seconds)
 	{
 		$type_split = explode("_",$type);
@@ -137,6 +137,31 @@ function SendData($Data_array){
 	$return = curl_exec($ch);
 	curl_close($ch);
 	return $return;
+}
+
+function DatabaseSendData_return($return){
+
+	$returnData = explode(":", $return);
+	$returnDataValues = array();
+	for ($i=0;$i<2;$i++){
+		$temp = explode("=", $returnData[$i]);
+		$returnDataValues[$i] = $temp[1];
+	}
+
+	$returnDataFinal = array(
+		'product_registerID_exist' => $returnDataValues[0],
+		'database_write' => $returnDataValues[1]
+	);
+
+	return $returnDataFinal;
+}
+
+function XMLDataWriteSendStatus($status){
+	//status = 1 => write was O.K.
+	//status = -1 => write was not O.K.
+	$xml=simplexml_load_file("/var/www/VDF.xml") or die("Error: Cannot create object");
+	$xml->data_cloud_transfer_status[0]->database_write_status[0] = $status;
+	$xml->asXML("/var/www/VDF.xml");
 }
 	
 }
