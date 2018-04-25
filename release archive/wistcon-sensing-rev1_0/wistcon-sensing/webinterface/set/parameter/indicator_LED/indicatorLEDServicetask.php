@@ -26,7 +26,7 @@ while ($loopstatus)
 
 	$loopstatus = $indicatorLEDtask->getrunstop();
 
-	set_time_limit(10);
+	set_time_limit(5);
 
 	//echo 'loopstatus 2 = '.$loopstatus."<br>";
 	//check if Ethernet is connected to the Internet
@@ -46,7 +46,6 @@ while ($loopstatus)
 				$indicatorLEDtask->setErrorLEDOnOff('blue', 0);
 				$indicatorLEDtask->setrunstop_flash_LED_redblue(0);	
 				$indicatorLEDtask->setrunstop_flash_LED_red(1);
-				$merker = $LEDstatus;
 			}	
 			break;
 		case 2:
@@ -56,31 +55,29 @@ while ($loopstatus)
 				$indicatorLEDtask->setErrorLEDOnOff('blue', 0);
 				$indicatorLEDtask->setrunstop_flash_LED_red(0);	
 				$indicatorLEDtask->setrunstop_flash_LED_redblue(1);
-				$merker = $LEDstatus;
 			}		
 			break;
 		default:
 			if($LEDstatus != $merker){
 				$indicatorLEDtask->setErrorLEDOnOff('red', 0);
-				$indicatorLEDtask->setErrorLEDOnOff('blue', 0);
 				$indicatorLEDtask->setrunstop_flash_LED_redblue(0);
 				$indicatorLEDtask->setrunstop_flash_LED_red(0);		
-				$indicatorLEDtask->setErrorLEDOnOff('blue', 1);
-				$merker = $LEDstatus;	
+				$indicatorLEDtask->setErrorLEDOnOff('blue', 1);	
 			}	
 			
 	}
-	
+	$merker = $LEDstatus;
+		
+
+	sleep(5);
 	if($loopstatus == false){
 		$indicatorLEDtask->setErrorLEDOnOff('red', 0);
 		$indicatorLEDtask->setErrorLEDOnOff('blue', 0);
 		$indicatorLEDtask->setrunstop_flash_LED_redblue(0);
 		$indicatorLEDtask->setrunstop_flash_LED_red(0);
 	}
-	
-		sleep(5);
 
-	
+
 }
 
 ?>

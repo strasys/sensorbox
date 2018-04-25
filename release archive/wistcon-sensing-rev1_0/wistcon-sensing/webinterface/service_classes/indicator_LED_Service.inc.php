@@ -141,7 +141,6 @@ function setrunstop_flash_LED_red($status)
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/indicatorLEDflashredstatus.txt");
 		switch ($status){
 			case 0:
 				$statusWord = "stop";
@@ -168,7 +167,6 @@ function getrunstop_flash_LED_red()
 	if ($statusFile == false)
 	{
 		$statusFile = fopen("/tmp/indicatorLEDflashredstatus.txt", "w");
-		exec("chown www-data:root /tmp/indicatorLEDflashredstatus.txt");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		//echo "test";
@@ -205,7 +203,6 @@ function setrunstop_flash_LED_redblue($status)
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/indicatorLEDflashredbluestatus.txt");
 		switch ($status){
 			case 0:
 				$statusWord = "stop";
@@ -232,7 +229,6 @@ function getrunstop_flash_LED_redblue()
 	if ($statusFile == false)
 	{
 		$statusFile = fopen("/tmp/indicatorLEDflashredbluestatus.txt", "w");
-		exec("chown www-data:root /tmp/indicatorLEDflashredbluestatus.txt");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		//echo "test";
