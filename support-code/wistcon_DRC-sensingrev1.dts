@@ -9,7 +9,7 @@
 *Idea and development
 *wistcon.at
 *Dipl.-Ing. Johannes Strasser
-*March 2018
+*September 2018
 *modified: 
 */
 
@@ -21,7 +21,7 @@
        part-number = "EL-100-020-001";
        version = "00A0";
        manufacturer = "strasys.at";
-       board-name = "wistcon-DRC020";
+       board-name = "WISTCON-SENSING";
        
        /* state the resources this cape uses */
 	exclusive-use =

@@ -60,11 +60,11 @@ else
 		echo "clean init_wistcon-020.service from /usr/lib/cgi-bin/"
 		rm init_wistcon-020.service
 		wait
-		echo "Copy wistcon-sensing-00A0.dtbo to /lib/firmware/"
-		cp wistcon-sensing-00A0.dtbo /lib/firmware/
+		echo "Copy WISTCON-SENSING-00A0.dtbo to /lib/firmware/"
+		cp WISTCON-SENSING-00A0.dtbo /lib/firmware/
 		wait
-		echo "Clean wistcon-sensing-00A0.dtbo from /usr/lib/cgi-bin/"
-		rm wistcon-sensing-00A0.dtbo
+		echo "Clean WISTCON-SENSING-00A0.dtbo from /usr/lib/cgi-bin/"
+		rm WISTCON-SENSING-00A0.dtbo
 		wait
 		echo "move to /lib/systemd/system/"
 		cd /lib/systemd/system/
