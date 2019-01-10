@@ -23,10 +23,10 @@ class indicator_LED_Service
 	
 function getrunstop()
 	{
-	$statusFile = fopen("/tmp/indicatorLEDstatus.txt", "r");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDstatus.txt", "r");
 	if ($statusFile == false)
 	{
-		$statusFile = fopen("/tmp/indicatorLEDstatus.txt", "w");
+		$statusFile = fopen("/var/www/tmp/indicatorLEDstatus.txt", "w");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		//echo "test";
@@ -55,11 +55,10 @@ function getrunstop()
 	//status = false => set to stop
 function setrunstop($status)
 	{
-	$statusFile = fopen("/tmp/indicatorLEDstatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDstatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/indicatorLEDstatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/indicatorLEDstatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{
@@ -133,15 +132,13 @@ function setErrorLEDOnOff($color, $OnOFF){
 	//status = false => set to stop
 function setrunstop_flash_LED_red($status)
 	{
-	$statusFile = fopen("/tmp/indicatorLEDflashredstatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDflashredstatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/indicatorLEDflashredstatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/indicatorLEDflashredstatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/indicatorLEDflashredstatus.txt");
 		switch ($status){
 			case 0:
 				$statusWord = "stop";
@@ -164,11 +161,10 @@ function setrunstop_flash_LED_red($status)
 
 function getrunstop_flash_LED_red()
 	{
-	$statusFile = fopen("/tmp/indicatorLEDflashredstatus.txt", "r");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDflashredstatus.txt", "r");
 	if ($statusFile == false)
 	{
-		$statusFile = fopen("/tmp/indicatorLEDflashredstatus.txt", "w");
-		exec("chown www-data:root /tmp/indicatorLEDflashredstatus.txt");
+		$statusFile = fopen("/var/www/tmp/indicatorLEDflashredstatus.txt", "w");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		//echo "test";
@@ -197,15 +193,13 @@ function getrunstop_flash_LED_red()
 	//status = false => set to stop
 function setrunstop_flash_LED_redblue($status)
 	{
-	$statusFile = fopen("/tmp/indicatorLEDflashredbluestatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDflashredbluestatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/indicatorLEDflashredbluestatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/indicatorLEDflashredbluestatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/indicatorLEDflashredbluestatus.txt");
 		switch ($status){
 			case 0:
 				$statusWord = "stop";
@@ -228,11 +222,10 @@ function setrunstop_flash_LED_redblue($status)
 
 function getrunstop_flash_LED_redblue()
 	{
-	$statusFile = fopen("/tmp/indicatorLEDflashredbluestatus.txt", "r");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDflashredbluestatus.txt", "r");
 	if ($statusFile == false)
 	{
-		$statusFile = fopen("/tmp/indicatorLEDflashredbluestatus.txt", "w");
-		exec("chown www-data:root /tmp/indicatorLEDflashredbluestatus.txt");
+		$statusFile = fopen("/var/www/tmp/indicatorLEDflashredbluestatus.txt", "w");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		//echo "test";

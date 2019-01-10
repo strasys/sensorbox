@@ -10,11 +10,10 @@ include_once ('/var/www/authentification.inc.php');
 
 if ($adminstatus == true)
 {
-	$statusFile = fopen("/tmp/CloudPushservicestatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/CloudPushservicestatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/CloudPushservicestatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/CloudPushservicestatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{

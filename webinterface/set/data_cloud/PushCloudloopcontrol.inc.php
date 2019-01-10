@@ -12,11 +12,11 @@ class PushCloudloopcontrol
 
 function runstop()
 {
-$statusFile = fopen("/tmp/CloudPushservicestatus.txt","r");
+$statusFile = fopen("/var/www/tmp/CloudPushservicestatus.txt","r");
 if ($statusFile == false)
 {
 	fclose($statusFile);
-	$statusFile = fopen("/tmp/CloudPushservicestatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/CloudPushservicestatus.txt", "w");
 	fwrite($statusFile, "stop");
 	fclose($statusFile);
 	$statusbool = false;

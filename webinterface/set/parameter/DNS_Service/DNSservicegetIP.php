@@ -18,8 +18,10 @@ $dnsloop = new dnsloopcontrol();
 
 $loopstatus = true;
 //The device ID shall be stored in the final basic setup *.xml.
+
 exec("flock /tmp/flockrweeprom /usr/lib/cgi-bin/rweeprom r 2 5 192 64", $deviceID);
 $deviceIDinfo = trim($deviceID[0]);
+ 
 $data = array(
 	'deviceID' => $deviceIDinfo
 	);

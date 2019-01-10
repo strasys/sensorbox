@@ -30,5 +30,24 @@ class EEPROM
 		exec("flock /tmp/lockrweeprom /usr/lib/cgi-bin/rweeprom r 2 5 192 64", $deviceID);
 		return trim($deviceID[0]);
 	}
+	//Returns Firmenname, mainboard drawing No., Production date
+	function getBasicInfo(){
+		$EEPROMdata = array();
+		$startingbyte = 0;
+		for ($i=0; $i<3;$i++){
+			exec("flock /tmp/lockrweeprom /usr/lib/cgi-bin/rweeprom r 2 5 $startingbyte 64", $result);
+			$EEPROMdata[] = trim($result[0]);	
+			$startingbyte += 64;
+			unset($result);
+		}
+		return $EEPROMdata;
+	}
+	//Returns onboard RTC use
+	function getRTCuse()
+	{
+		exec("flock /tmp/lockrweeprom /usr/lib/cgi-bin/rweeprom r 2 5 512 64", $RTCuse);
+		return trim($RTCuse[0]);
+	}
+
 }
 ?>

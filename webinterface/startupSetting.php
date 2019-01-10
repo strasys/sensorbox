@@ -1,6 +1,6 @@
 <?php
 // Gibt an welche PHP-Fehler �berhaupt angezeigt werden
-//error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL | E_STRICT);
 // Um die Fehler auch auszugeben, aktivieren wir die Ausgabe
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -26,20 +26,24 @@ function writestatus($statusWord, $statusFile){
 $xml=simplexml_load_file("/var/www/VDF.xml") or die("Error: Cannot create object");
 $DNSService = $xml->OperationModeDevice[0]->DNSService;
 $ComposerService = $xml->OperationModeDevice[0]->AutomaticHand;
-$pushButtonSensingService = $xml->OperationModeDevice[0]->pushButtonSensing;
+//$pushButtonSensingService = $xml->OperationModeDevice[0]->pushButtonSensing;
 $PushDataCloudService = $xml->OperationModeDevice[0]->PushDataCloudService;
 $indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 
+//$statusFile = false;
 //Set status of DNSService
-	$statusFile = fopen("/tmp/DNSservicestatus.txt", "w");
+//chdir("/tmp");
+
+$statusFile = fopen("/var/www/tmp/DNSservicestatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/DNSservicestatus.txt\", \"w\" ";
-		break;
+		die ("The DNSservicestatus.txt file was not generated!");
 	}
+
+
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/DNSservicestatus.txt");
+		//exec("chown www-data:root /var/www/tmp/DNSservicestatus.txt");
 		switch (($DNSService)){
 			case 'stop':
 				$statusWord = "stop";
@@ -54,18 +58,18 @@ $indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 		}	
 	}
 
-
+/*
 //Set status of Composer
 	unset($statusFile, $statusWord);
-	$statusFile = fopen("/tmp/composerstatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/composerstatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/composerstatus.txt\", \"w\" ";
+		die ("The composerstatus.txt file was not generated!");
 		break;
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/composerstatus.txt");
+		//exec("chown www-data:root /tmp/composerstatus.txt");
 		switch (($ComposerService)){
 			case 'stop':
 				$statusWord = "stop";
@@ -80,17 +84,18 @@ $indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 		}
 
 	}
+ */
+
 //Set status of Cloud Service
 	unset($statusFile, $statusWord);
-	$statusFile = fopen("/tmp/CloudPushservicestatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/CloudPushservicestatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/CloudPushservicestatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/var/www/tmp/CloudPushservicestatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/CloudPushservicestatus.txt");
+		//exec("chown www-data:root /var/www/tmp/CloudPushservicestatus.txt");
 		switch (($PushDataCloudService)){
 			case 'stop':
 				$statusWord = "stop";
@@ -105,7 +110,7 @@ $indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 		}
 
 	}
-
+/*
 //Set status for pushButtonSensing Function
 	unset($statusFile, $statusWord);
 	$statusFile = fopen("/tmp/pushButtonSensingRunStop.txt", "w");
@@ -134,19 +139,18 @@ $indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 				$sensingClass->setInputforSensing($arrforSensingSet,$speed);
 		}
 	}
-
+ */
 //Set status of indicator LED Service
 	unset($statusFile, $statusWord);
-	$statusFile = fopen("/tmp/indicatorLEDstatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/indicatorLEDstatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/indicatorLEDstatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/indicatorLEDstatus.txt\"");
 	}
 	elseif ($statusFile)
 	{
-		exec("chown www-data:root /tmp/indicatorLEDstatus.txt");
-		switch (($PushDataCloudService)){
+		//exec("chown www-data:root /var/www/tmp/indicatorLEDstatus.txt");
+		switch (($indicatorLEDServicetask)){
 			case 'stop':
 				$statusWord = "stop";
 				writestatus($statusWord, $statusFile);
@@ -160,5 +164,5 @@ $indicatorLEDServicetask = $xml->OperationModeDevice[0]->indicatorLED;
 		}
 
 	}
-
+ 
 ?>

@@ -20,10 +20,10 @@ class composerService
 	//run (1)= composer = Automatic mode is on
 	function getcomposerStatus()
 	{
-	$statusFile = fopen("/tmp/composerstatus.txt", "r");
+	$statusFile = fopen("/var/www/tmp/composerstatus.txt", "r");
 	if ($statusFile == false)
 	{
-		$statusFile = fopen("/tmp/composerstatus.txt", "w");
+		$statusFile = fopen("/var/www/tmp/composerstatus.txt", "w");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		echo "test";
@@ -52,11 +52,10 @@ class composerService
 	//status = false => set to stop
 	function setcomposerStatus($status)
 	{
-	$statusFile = fopen("/tmp/composerstatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/composerstatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/composerstatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/composerstatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{

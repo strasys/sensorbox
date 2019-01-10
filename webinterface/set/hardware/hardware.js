@@ -141,7 +141,9 @@ function sethardwarehtmlinterface(callback){
 function startatLoad(){
 	loadNavbar(function(){
 		getExtensions(function(){
-			 sethardwarehtmlinterface();
+			sethardwarehtmlinterface(function(){
+				loadHardwareConfig();
+			});
 		});
 	});
 }
@@ -195,6 +197,10 @@ $("#Extension4").on('click', function(){
 
 	window.location = EEPROMext[3]+".html?ver=1&extension4&extensionNumkind4";
 });
+$("#System").on('click', function(){
+
+	window.location = "System.html?ver=1";
+});
 
 
 function loadExtensions(ExtensionNo, idData, header, description, callback){
@@ -211,10 +217,33 @@ function loadExtensions(ExtensionNo, idData, header, description, callback){
 				"<div class=\"row\">"+
 					"<p class=\"col-xs-12 col-md-12\">"+description+"</p>"+
 				"</div>"+
-			"</div>"
+				"</div>"
 	);
 
 	if (callback){
 		callback();
 	}
 };
+
+function loadHardwareConfig(callback){
+
+	$("#System").html("	<div id=\"EEPROM\" class=\"databox info btn btn-default\" style=\"border-radius:0px; min-width:100%;\">"+
+				"<div class=\"page-header\">"+
+					"<div class=\"row\">"+
+						"<h3 class=\"col-xs-2 text-right\"><span class=\"glyphicon\" style=\"color:grey;\"></span></h3>"+
+						"<h3 class=\"col-xs-8\" style=\"color:#0087e8;\">System</h3>"+
+						"<h3 class=\"col-xs-2\"><span class=\"glyphicon glyphicon-chevron-right\" style=\"color:grey;\"></span></h3>"+
+						"<h4 class=\"col-xs-12\">EEPROM u. Betriebssystem</h4>"+
+					"</div>"+	
+				"</div>"+
+				"<div class=\"row\">"+
+					"<p class=\"col-xs-12 col-md-12\">Übersicht: Software- u. Hardware<br>Hardware, Firmware, Betriebssystem, etc.</p>"+
+				"</div>"+
+				"</div>"
+	);
+
+	if (callback){
+		callback();
+	}
+};
+

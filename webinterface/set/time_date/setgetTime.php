@@ -24,7 +24,7 @@ include_once ('/var/www/authentification.inc.php');
 	$Year = $_POST["Year"];
 	$t = "t";
 	$d = "d";
-
+/*
 if($flag)
 {
 	if ($td == $t){
@@ -48,6 +48,7 @@ if($flag)
 			'adminstatus' => $adminstatus
 	);
 }
+ */
 if (isset($_POST['getsetTimeZone'])){
 	if ($_POST['getsetTimeZone'] == 1){
 		//get time Zone data from XML

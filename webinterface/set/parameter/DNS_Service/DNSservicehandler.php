@@ -23,10 +23,10 @@ if ($getLoginStatus == $get)
 
 if ($setgetDNSserviceStatus == $get)
 {
-	$statusFile = fopen("/tmp/DNSservicestatus.txt", "r");
+	$statusFile = fopen("/var/www/tmp/DNSservicestatus.txt", "r");
 	if ($statusFile == false)
 	{
-		$statusFile = fopen("/tmp/DNSservicestatus.txt", "w");
+		$statusFile = fopen("/var/www/tmp/DNSservicestatus.txt", "w");
 		fwrite($statusFile, "stop");
 		fclose($statusFile);
 		$statusWord = "stop";
@@ -50,11 +50,10 @@ if ($setgetDNSserviceStatus == $get)
 
 if (($setgetDNSserviceStatus == $set) && ($adminstatus == true))
 {
-	$statusFile = fopen("/tmp/DNSservicestatus.txt", "w");
+	$statusFile = fopen("/var/www/tmp/DNSservicestatus.txt", "w");
 	if ($statusFile == false)
 	{
-		$errorMsg = "Error: fopen\"/tmp/DNSservicestatus.txt\", \"w\" ";
-		break;
+		die ("Error: fopen\"/tmp/DNSservicestatus.txt\", \"w\" ");
 	}
 	elseif ($statusFile)
 	{

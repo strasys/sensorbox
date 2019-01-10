@@ -40,7 +40,7 @@
 
 
 <data_cloud>
-<datatocloud>HUMIDITY_0:2:humidity_val1:1:%r.F.:1</datatocloud><datatocloud>HUMIDITY_1:2:humidity_temp_val1:1:°C:1</datatocloud></data_cloud>
+<datatocloud>HUMIDITY_0:2:humidity_val1:5:%r.F.:1</datatocloud><datatocloud>HUMIDITY_1:2:humidity_temp_val1:5:°C:1</datatocloud></data_cloud>
 
 <data_cloud_transfer_status>
 	<database_write_status>1</database_write_status>
@@ -49,7 +49,7 @@
 <OperationModeDevice>
 	<AutomaticHand>stop</AutomaticHand>
 	<DNSService>run</DNSService>
-	<PushDataCloudService>run</PushDataCloudService>
+	<PushDataCloudService>stop</PushDataCloudService>
 	<indicatorLED>run</indicatorLED>
 </OperationModeDevice>
 <timedate>

@@ -40,7 +40,7 @@ function getServerData(callback2){
 		if (xhttp.readyState==4 && xhttp.status==200)
 		{
 			var Data = JSON.parse(xhttp.responseText); 
-			//Data => humidity1, humidity_temp1, temp1, temp2
+			//Data => humidity1, humidity_temp1
 
 			if (callback2){
 			callback2(Data);
@@ -56,7 +56,7 @@ function getXMLData(callback4){
 		if (xhttp.readyState==4 && xhttp.status==200){
 			var getXMLData = xhttp.responseXML;
 			var HUMIDITY = getXMLData.getElementsByTagName("HUMIDITY");
-			var PT1000 = getXMLData.getElementsByTagName("PT1000");
+			//var PT1000 = getXMLData.getElementsByTagName("PT1000");
 
 			document.getElementById("labelFeuchte1").innerHTML = HUMIDITY[0].getElementsByTagName("HUMIDITYname1")[0].childNodes[0].nodeValue;
 			document.getElementById("labelFeuchte_Temp1").innerHTML = HUMIDITY[1].getElementsByTagName("HUMIDITYname1")[0].childNodes[0].nodeValue;
