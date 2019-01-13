@@ -8,8 +8,8 @@
 #ifndef I2C_HANDLER_H_
 #define I2C_HANDLER_H_
 
-#define I2C2_path 1 	//"/dev/i2c-1" i2c-1 is in reality i2c2
-#define I2C1_path 2		//"/dev/i2c-2" i2c-0 is in reality i2c1
+#define I2C2_path 2 	//"/dev/i2c-2" i2c-2
+#define I2C1_path 1		//"/dev/i2c-1" i2c-1
 // TODO rename
 // participants on i2c2
 extern int addr_EEPROMmain;		// = 0x54 I2C address of the EEPROM (Cap 1)

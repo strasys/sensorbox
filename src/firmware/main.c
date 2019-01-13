@@ -32,7 +32,7 @@ void init(void){
 
 	init_GPIO(2);
 	//The mainboard EEPROM must be unbind
-	EEPROMinit(1, 54);
+	EEPROMinit(2, 54);
 	/*
 	 * Read mainboard EEPROM - to detect the bus addresses and
 	 * devices added to the extension slots.

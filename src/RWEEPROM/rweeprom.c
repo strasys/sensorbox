@@ -46,7 +46,7 @@ int main(int argc, char *argv[], char *env[]){
 		if (argc != 2) {
 			fprintf(stderr, "rweeprom: missing argument! => %s\n", strerror(errno));
 		} else {
-			EEPROMinit(1,54);
+			EEPROMinit(2,54);
 		}
 		break;
 	case 'r':
