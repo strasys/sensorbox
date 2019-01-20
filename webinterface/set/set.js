@@ -83,6 +83,10 @@ $("#RegisterDevice").on('click', function(){
 	window.location = "/set/registration/deviceOwnerRegistration.html?ver=0";
 });
 
+$("#DeviceName").on('click', function(){
+	window.location = "/set/deviceName/deviceName.html?ver=0";
+});
+
 $("#Parametrisation").on('click', function(){
 	window.location = "/set/parameter/parametrisation.html?ver=0";
 });
