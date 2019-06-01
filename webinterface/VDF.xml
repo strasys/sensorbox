@@ -48,9 +48,9 @@
 
 <OperationModeDevice>
 	<AutomaticHand>stop</AutomaticHand>
-	<DNSService>run</DNSService>
+	<DNSService>stop</DNSService>
 	<PushDataCloudService>stop</PushDataCloudService>
-	<indicatorLED>run</indicatorLED>
+	<indicatorLED>stop</indicatorLED>
 </OperationModeDevice>
 <timedate>
 	<timezone>Europe/Berlin</timezone>
