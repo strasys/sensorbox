@@ -104,6 +104,7 @@ void initRTC(void){
 		getFormatForDate(dateTime);
 		sprintf(command,"date -u %s",dateTime);
 		system(command);
+		//error is not a problem yet!!
 	}
 }
 
