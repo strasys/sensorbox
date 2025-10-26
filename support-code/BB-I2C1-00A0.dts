@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "ti,beaglebone", "ti,beaglebone-black";
+    part-number = "BB-I2C1-00A0";
+    version = "00A0";
+
+    /* Release control of these pins so overlay can use them */
+    exclusive-use = "P9.17", "P9.18";
+
+    fragment@0 {
+        target = <&am33xx_pinmux>;
+        __overlay__ {
+            bb_i2c1_pins: pinmux_bb_i2c1_pins {
+                pinctrl-single,pins = <
+                    0x158 0x72  /* P9_18.i2c1_sda, mode 2, pull-up */
+                    0x15C 0x72  /* P9_17.i2c1_scl, mode 2, pull-up */
+                >;
+            };
+        };
+    };
+
+    fragment@1 {
+        target = <&i2c1>;
+        __overlay__ {
+            status = "okay";
+            pinctrl-names = "default";
+            pinctrl-0 = <&bb_i2c1_pins>;
+            clock-frequency = <100000>;
+        };
+    };
+
+    __overrides__ {
+        clock = /fragment@1/__overlay__/clock-frequency;
+    };
+};

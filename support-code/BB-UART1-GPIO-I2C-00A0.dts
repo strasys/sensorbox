@@ -1,0 +1,99 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * BeagleBone Black Overlay:
+ * Enables UART1, I2C1, I2C2, and GPIOs on P9_14 and P9_15.
+ *
+ * Compatible with Linux 6.x-bone kernels
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/am33xx.h>
+
+/* Show overlay info under /proc/device-tree/chosen/overlays */
+&{/chosen} {
+    overlays {
+        BB-UART1-GPIO-I2C-00A0.kernel = __TIMESTAMP__;
+    };
+};
+
+/* Disable conflicting default pinmuxes (cape-universal) */
+&ocp {
+    P9_14_pinmux { status = "disabled"; }; /* ehrpwm1A / gpio1_18 */
+    P9_15_pinmux { status = "disabled"; }; /* ehrpwm1B / gpio1_16 */
+    P9_17_pinmux { status = "disabled"; }; /* I2C1_SCL */
+    P9_18_pinmux { status = "disabled"; }; /* I2C1_SDA */
+    P9_19_pinmux { status = "disabled"; }; /* I2C2_SCL */
+    P9_20_pinmux { status = "disabled"; }; /* I2C2_SDA */
+    P9_24_pinmux { status = "disabled"; }; /* UART1_TXD */
+    P9_26_pinmux { status = "disabled"; }; /* UART1_RXD */
+};
+
+/* Define all pin configurations */
+&am33xx_pinmux {
+    bb_uart1_gpio_i2c_pins: pinmux_bb_uart1_gpio_i2c_pins {
+        pinctrl-single,pins = <
+            /* UART1 */
+            AM33XX_PADCONF(0x184, PIN_OUTPUT_PULLDOWN, MUX_MODE0) /* P9_24 */
+            AM33XX_PADCONF(0x180, PIN_INPUT_PULLUP, MUX_MODE0)   /* P9_26 */
+
+            /* GPIOs */
+            AM33XX_PADCONF(0x080, PIN_OUTPUT_PULLDOWN, MUX_MODE7) /* P9_14 = gpio1_18 */
+            AM33XX_PADCONF(0x078, PIN_OUTPUT_PULLDOWN, MUX_MODE7) /* P9_15 = gpio1_16 */
+
+            /* I2C1 */
+            AM33XX_PADCONF(0x178, PIN_INPUT_PULLUP, MUX_MODE2) /* P9_18 */
+            AM33XX_PADCONF(0x174, PIN_INPUT_PULLUP, MUX_MODE2) /* P9_17 */
+
+            /* I2C2 */
+            AM33XX_PADCONF(0x17C, PIN_INPUT_PULLUP, MUX_MODE3) /* P9_20 */
+            AM33XX_PADCONF(0x170, PIN_INPUT_PULLUP, MUX_MODE3) /* P9_19 */
+        >;
+    };
+};
+
+/* Enable UART1 */
+&uart1 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&bb_uart1_gpio_i2c_pins>;
+    status = "okay";
+};
+
+/* Enable I2C1 */
+&i2c1 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&bb_uart1_gpio_i2c_pins>;
+    status = "okay";
+    clock-frequency = <100000>;
+};
+
+/* Enable I2C2 */
+&i2c2 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&bb_uart1_gpio_i2c_pins>;
+    status = "okay";
+    clock-frequency = <100000>;
+};
+
+/* Export GPIOs as simple LEDs (optional example) */
+&{/} {
+    leds {
+        compatible = "gpio-leds";
+        pinctrl-names = "default";
+        pinctrl-0 = <&bb_uart1_gpio_i2c_pins>;
+
+        p9_14_gpio {
+            label = "gpio-p9_14";
+            gpios = <&gpio1 18 GPIO_ACTIVE_HIGH>;
+            default-state = "off";
+        };
+
+        p9_15_gpio {
+            label = "gpio-p9_15";
+            gpios = <&gpio1 16 GPIO_ACTIVE_HIGH>;
+            default-state = "off";
+        };
+    };
+};
