@@ -5,8 +5,5 @@
 # Johannes Strasser
 # July 4th 2017
 
-#slots="/sys/devices/bone_capemgr.9/slots"
-#echo strasys-wistcon >$slots
-
 /usr/lib/cgi-bin/firmware
 

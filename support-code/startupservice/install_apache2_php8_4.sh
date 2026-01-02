@@ -7,46 +7,43 @@
 
 #Installation of Server components
 #
-echo "update debian wheeze 7"
-apt-get update
+echo "update debian"
+sudo apt-get update
+wait
+echo "Debian Version"
+sudo cat /etc/debian_version
 wait
 echo "install apache2"
-apt-get install apache2
+sudo apt-get install apache2
 wait
-echo "install php5 libapache2-mod-php5"
-apt-get install php5 libapache2-mod-php5 php5-curl
+sudo rm avahi-daemon.service
+echo "purge bonescript bone101 c9-core-installer bb-node-red-installer"
+sudo apt-get purge bonescript bone101 c9-core-installer bb-node-red-installer
 wait
-echo "Disabeling of not used services:"
-echo "disabel cloud9.service"
-systemctl disable cloud9.service
-echo "disable bonescript.service"
-systemctl disable bonescript.service
-echo "disable bonescript.socket"
-systemctl disable bonescript.socket
-echo "disable bonescript-autorun.service"
-systemctl disable bonescript-autorun.service
-echo "disable avahi-daemon.service"
-systemctl disable avahi-daemon.service
-echo "disable gateone.service"
-systemctl disable gateone.service
-echo "disable gdm.service"
-systemctl disable gdm.service
-echo "disable mpd.service"
-systemctl disable mpd.service
-echo "Installation of apache2, php5 and libapache2-mod-php5 completed"
+echo "install php8.4 libapache2-mod-php8.4"
+#sudo apt-get install php7.3 php-curl libapache2-mod-php php-xml
+sudo apt-get install php8.4 php8.4-cli php8.4-fpm php8.4-curl php8.4-xml libapache2-mod-php8.4
+wait
+sudo rm avahi-daemon.service
+echo "purge bonescript bone101 c9-core-installer bb-node-red-installer"
+sudo apt-get purge bonescript bone101 c9-core-installer bb-node-red-installer
+wait
+echo "Installation of apache2, php7 and libapache2-mod-php7 completed"
 echo "restart apache2"
-service apache2 restart
+sudo systemctl restart apache2.service
+wait
+sudo apt-get autoremove
 wait
 echo "The network interface file needs to contain following:\n
-The rest needs tobe uncommented\n\n
+The rest needs to be uncommented\n\n
 # The loopback network interface\n
 auto lo\n
 iface lo inet loopback\n
 "
 read -p "Change the /etc/network/interfaces file and than press enter to continue."
-apt-get install network-manager
+#apt-get install network-manager
 wait
--p "Would you like to activate SSL encryption? (y/n)? " RESP
+"Would you like to activate SSL encryption? (y/n)? " RESP
 if [ "$RESP" = "y" ]; then
 echo "Generate private key"
 openssl genrsa -out /etc/ssl/private/apache.key 2048 

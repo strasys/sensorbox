@@ -3,11 +3,11 @@
 #wistcon
 #Dipl.-Ing. Johannes Strasser
 #Skript to write EEPROM
-#Date: 22.04.2019
+#Date: 30.12.2025
 
 sudo ./rweeprom w 2 5 0 "Dipl.-Ing. Johannes Strasser|www.wistcon.at|Kopfingi.I.AT       "
 wait
-sudo ./rweeprom w 2 5 64 "EL-200-010-001 rev 1.00                                         "
+sudo ./rweeprom w 2 5 64 "EL-200-010-001 rev.2.0                                          "
 wait
 read -p 'Production Date: ' productiondate
 sudo ./rweeprom w 2 5 128 "$productiondate                                                        "

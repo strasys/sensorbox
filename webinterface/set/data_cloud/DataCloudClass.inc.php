@@ -1,4 +1,10 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+// rest of the code
+
 /*
  * 1. Get data from VDF.xml 
  * 2. Fetch data value.
@@ -68,7 +74,7 @@ function getDatatoSend($type, $ext, $metering_ID, $time_interval, $unit, $factor
 		$AOUT = new AOUT();
 		$HUMIDITY = new HUMIDITY();
 
-		switch (trim($type_split[0])){
+		switch (trim($type_split[0] ?? '')){
 		case "DigiOUT":
 			$value_metering = $GPIO->getOutSingle($type_split[1]);
 			break;
@@ -122,16 +128,16 @@ function SendData($Data_array){
 			$data_string = $data_string.$send_var_array[$n].$i.'='.$Data_array[$i][$n].'&';
 		}
 	}
-	
+
 	$trimmed = rtrim($data_string, '&');
 	//echo $trimmed."<br>";
-
+	//echo strlen((string)($data_string))."<br>";
 	//sudo apt-get install php5-curl => needed
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://www.strasys.at/data/dataCloudhandler.php');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($ch, CURLOPT_POST, count($data_string));
+	//curl_setopt($ch, CURLOPT_POST, strlen((string)$data_string));
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	$return = curl_exec($ch);

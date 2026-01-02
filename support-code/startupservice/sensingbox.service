@@ -1,0 +1,14 @@
+[Unit]
+Description=sensingbox start up services
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/lib/cgi-bin/sensingbox-startup.sh
+WorkingDirectory=/lib/cgi-bin
+#Restart=always
+RemainAfterExit=yes
+User=root
+
+[Install]
+WantedBy=multi-user.target
